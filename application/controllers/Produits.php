@@ -202,3 +202,4 @@ class Produits extends CI_Controller
         }   
     }
 }
+echo "coucou";
