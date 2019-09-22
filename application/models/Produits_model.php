@@ -75,4 +75,13 @@ public function suppression($id){
         $this->db->delete('produits');  
         return;
 }
+
+public function mdp($email){
+        // row correspondant au (login/email)
+        $this->load->database();
+        $this->db>where('ins_login',$email);
+        $ident['ident'] = $this->db->get('inscription')->row();
+        return $ident;
+}
+
 }

@@ -63,8 +63,8 @@ class Produits extends CI_Controller
             if (($this->form_validation->run() == false) || (count($aview)!=0)){               
                 //il au moins une erreur / recharge la vue formulaire ajout
 
-                $cat=$this->produits_model->ajout_categories();  
-
+                $cat=$this->produits_model->categories();  
+                $this->load->view('header.php');
                 $this->load->view('ajout', $cat+$aview);
             } 
             else {
@@ -89,8 +89,7 @@ class Produits extends CI_Controller
         } 
         else {  //il n'y a pas de valeurs postées premier affichage du formulaire ajout
             
-            $cat = $this->produits_model->categories();
-
+            $cat = $this->produits_model->categories(); 
             $this->load->view('header.php');
             $this->load->view('ajout', $cat);
         }
@@ -105,12 +104,18 @@ class Produits extends CI_Controller
 
         if ($this->input->post()) {
 
-        $this->form_validation->set_rules('pro_ref', 'Référence', 'required|html_escape|regex_match[/^[\ \/_ \-A-Za-z0-9êéèçàäëï]*$/]|max_length[10]', array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
-        $this->form_validation->set_rules('pro_libelle', 'Nom', 'required|html_escape|regex_match[/^[\ \/_ \-A-Za-z0-9êéèçàäëï]*$/]|max_length[200]', array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
-        $this->form_validation->set_rules('pro_prix', 'Prix', 'required|html_escape|regex_match[/^[0-9]{1,6}(.[0-9]{2})$/]|max_length[9]', array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
-        $this->form_validation->set_rules('pro_stock', 'Stock', 'required|html_escape|regex_match[/^[0-9]{1,11}$/]|max_length[11]', array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
-        $this->form_validation->set_rules('pro_couleur', 'Couleur', 'required|html_escape|regex_match[/^[\ \/_ \-A-Za-z0-9êéèçàäëï]*$/]|max_length[30]', array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
-        $this->form_validation->set_rules('pro_description', 'Description', 'required|html_escape|regex_match[/^[^<>\/]+[\w\W]{1,999}$/]|max_length[1000]', array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
+        $this->form_validation->set_rules('pro_ref', 'Référence', 'required|html_escape|regex_match[/^[\ \/_ \-A-Za-z0-9êéèçàäëï]*$/]|max_length[10]',
+             array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
+        $this->form_validation->set_rules('pro_libelle', 'Nom', 'required|html_escape|regex_match[/^[\ \/_ \-A-Za-z0-9êéèçàäëï]*$/]|max_length[200]',
+             array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
+        $this->form_validation->set_rules('pro_prix', 'Prix', 'required|html_escape|regex_match[/^[0-9]{1,6}(.[0-9]{2})$/]|max_length[9]', 
+            array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
+        $this->form_validation->set_rules('pro_stock', 'Stock', 'required|html_escape|regex_match[/^[0-9]{1,11}$/]|max_length[11]',
+             array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
+        $this->form_validation->set_rules('pro_couleur', 'Couleur', 'required|html_escape|regex_match[/^[\ \/_ \-A-Za-z0-9êéèçàäëï]*$/]|max_length[30]',
+             array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
+        $this->form_validation->set_rules('pro_description', 'Description', 'required|html_escape|regex_match[/^[^<>\/]+[\w\W]{1,999}$/]|max_length[1000]',
+             array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
 
             if(!empty($_FILES['fichier']['name'])){
                 //test photo valide
@@ -192,13 +197,35 @@ class Produits extends CI_Controller
         $this->load->database();
 
         if($this->input->post()){
+        // regles de validation des champs
+        $this->form_validation->set_rules('email','Login','required|html_escape|regex_match[/[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}/]|is_unique[inscription.ins_login]',array('required'=>'Champs vide', 'regex_match'=>'Saisie incorrecte','is_unique'=>'compte inexistant'));
+        $this->form_validation->set_rules('mdp','mot de passe','required|html_escape|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]', array('required'=>'champs vide','regex_match'=>'Saisie incorrecte'));
         
-        $this->form_validation->set_rules('email','Login','required','html_escape', 'regex_match[/[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}/]');
-        $this->form_validation->set_rules('mdp','mot de passe','riqured','html_escape','regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]');
-        }
-        else{
+            if($this->form_validation->run() != false){ //si pas d'erreur dans les champs email et mdp
+    
+            $email = $this->input->post('email');  //valeur champs  email
+            $this->produits_model->mdp($email);    // envoie $email au model mdp
+            //recup le mot de passe hash de produits_model / fonction mdp
+                if (password_verify($this->input->post('mdp'),$ident['ident']->ins_mdp)){ //mot de passe verfifé
+                    // ouvre une session et set les valeurs pour session
+                    //messgae connexion
+                    //charge les liste pour admin 
+
+                }else{
+                    //message erreur mdp ou login et recharge la page liste pour utilisateur
+                    $this->load->view('header');
+                    $this->load->view(''); 
+                }
+
+            }else{ // form_validation false
+                $this->load->view('header');
+                $this->load->view('form_mdp'); 
+            }          
+       
+        }else{ //pas de post 1er affichage de la vue
             $this->load->view('header');
             $this->load->view('form_mdp');  
-        }   
+        }
+         
     }
 }

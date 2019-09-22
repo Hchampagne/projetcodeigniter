@@ -13,12 +13,12 @@
                     <!-- login -->
                     <div class="form-group">
                         <input type="text" name="email" id="email" class="form-control input-lg" placeholder="adresse mail" value="<?= isset($_POST['email']) ? $_POST['email'] : ""; ?>">
-                        <p id="alertEmail1">&nbsp</p>
+                        <p id="alertEmail">&nbsp<?= form_error('email', '<span>', '</span>') ?></p>
                     </div>
                     <!-- mot de passe -->
                     <div class="form-group">
                         <input type="password" name="mdp" id="mdp" class="form-control input-lg" placeholder="mot de passe" value="<?= isset($_POST['mdp']) ? $_POST['mdp'] : "";  ?>">
-                        <span id="alertMdp1">&nbsp</span>
+                        <span id="alertMdp">&nbsp<?= form_error('mdp', '<span>', '</span>') ?></span>
                     </div>
                     <div>
                         <button type="submit" class="btn btn-md btn-primary" value="connexion" name="connexion">connexion</button>
