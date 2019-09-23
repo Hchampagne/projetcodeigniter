@@ -24,7 +24,7 @@
                         <button type="submit" class="btn btn-md btn-primary" value="connexion" name="connexion">connexion</button>
                     </div>
                     <div>
-                        <p>&nbsp*<?= isset($mess) ? $mess : "" ; ?></p>
+                        <p>&nbsp<?= isset($mess) ? $mess : "" ; ?></p>
                     </div>
                     <div>
                         <a href="#">Mot de passe oublié ou verrouillez !?</a>

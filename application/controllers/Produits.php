@@ -11,12 +11,25 @@ class Produits extends CI_Controller
         //appel model
         $this->load->model('produits_model');
         $aListe = $this->produits_model->liste();
-        
         $aView["liste_produits"] = $aListe;
         // Appel de la vue avec transmission du tableau 
+
         $this->load->view('header.php');
         $this->load->view('liste', $aView);
     }
+
+    public function liste_user()
+    {
+        //appel model
+        $this->load->model('produits_model');
+        $aListe = $this->produits_model->liste();
+
+        $aView["liste_produits"] = $aListe;
+        // Appel de la vue avec transmission du tableau 
+        $this->load->view('header_user.php');
+        $this->load->view('liste_user', $aView);
+    }
+
 
     //DETAIL
     public function detail($id)
@@ -27,14 +40,30 @@ class Produits extends CI_Controller
         $catId = $model['produit']->pro_cat_id;
 
         $detailCat = $this->produits_model->detail_categories($catId);
+        $this->session;
+        if ($this->session->role == 'admin') {
+            $this->load->view('header.php');
+            $this->load->view('detail', $model + $detailCat);
+        }else{
+            $this->load->view('header_user.php');
+            $this->load->view('detail', $model + $detailCat);
+        }
+        
 
-        $this->load->view('header.php');
-        $this->load->view('detail', $model + $detailCat);
+        //$this->load->view('header.php');
+       // $this->load->view('detail', $model + $detailCat);
     }
 
     //AJOUT
     public function ajout()
-    {
+    {   
+        // controle session acces admin
+        $this->session;
+        if ($this->session->role != 'admin') {
+            redirect('produits/liste_user');
+            session_unset();
+            session_destroy();
+        }
         
         $this->load->database();
 
@@ -84,7 +113,7 @@ class Produits extends CI_Controller
                 //ajout extention en base et de renome /deplace la photo
                 $this->upload->do_upload('fichier');
                 
-                redirect("produits/liste"); // redirection liste             
+                //redirect("produits/liste"); // redirection liste             
             }
         } 
         else {  //il n'y a pas de valeurs postées premier affichage du formulaire ajout
@@ -99,7 +128,14 @@ class Produits extends CI_Controller
     //MODIFICATION
     public function modif($id)
     {
-       
+        // controle session acces admin
+       $this->session;
+       if($this->session->role != 'admin'){
+            redirect('produits/liste_user');
+            session_unset();
+            session_destroy();
+        }
+
         $this->load->database();
 
         if ($this->input->post()) {
@@ -161,8 +197,8 @@ class Produits extends CI_Controller
                 }
                
                 $this->produits_model->modif_update($data,$id,$extention);
-
-                redirect("produits/liste");//
+                // ré affiche le header et la liste admin
+                redirect("produits/liste");
             }              
         } 
         else {
@@ -200,7 +236,7 @@ class Produits extends CI_Controller
         // regles de validation des champs
         
         $this->form_validation->set_rules('email','Login','required|html_escape|regex_match[/[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}/]',array('required'=>'Champs vide', 'regex_match'=>'Saisie incorrecte'));
-        $this->form_validation->set_rules('mdp','mot de passe','required|html_escape|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]', array('required'=>'champs vide','regex_match'=>'Saisie incorrecte'));
+        $this->form_validation->set_rules('mdp','mot de passe','required|html_escape|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]', array('required'=>'Champs vide','regex_match'=>'Saisie incorrecte'));
         
             if($this->form_validation->run() != false){ //si pas d'erreur dans les champs email et mdp
     
@@ -218,30 +254,36 @@ class Produits extends CI_Controller
                     $this->session->set_userdata('prenom',$ident['ident']->ins_prenom);
                     $this->session->set_userdata('email',$ident['ident']->ins_login);
                     
-                    //message connexion
+                        if($this->session->role  == 'admin'){
+                            //load header et liste admin                     
+                            redirect("produits/liste"); // redirection liste  
+
+                        }else{
+                            //load header et liste user
+                           redirect('produits/liste_user');
+                        }
 
                     //charge la liste et header pour admin
-                    $this->load->view('header');
-                    $this->load->view('liste');
+                    
                     
                     }else{ // erreur mot de passe
                         $mess['mess'] = 'problème connexion mdp';                     
-                        $this->load->view('header');
+                        $this->load->view('header_user');
                         $this->load->view('form_mdp',$mess);                     
                     }
                 }else{ //message erreur le login n'existe pas
                     $mess['mess'] = 'problème connexion login';
-                    $this->load->view('header');
+                    $this->load->view('header_user');
                     $this->load->view('form_mdp',$mess);
                 }
 
             }else{ // form_validation false
-                $this->load->view('header');
+                $this->load->view('header_user');
                 $this->load->view('form_mdp'); 
             }          
        
         }else{ //pas de post 1er affichage de la vue
-            $this->load->view('header');
+            $this->load->view('header_user');
             $this->load->view('form_mdp');  
         }
          
