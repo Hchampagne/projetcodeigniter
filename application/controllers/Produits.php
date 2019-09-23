@@ -34,13 +34,14 @@ class Produits extends CI_Controller
     //DETAIL
     public function detail($id)
     {
-
+       
         $model = $this->produits_model->detail_produits($id);
         $catId = $model['produit']->pro_cat_id;
         $detailCat = $this->produits_model->detail_categories($catId);
-
-        $this->session;
-        if($this->session->role !== 'admin'){
+       
+     
+        if($this->session->role != 'admin'){
+            echo $this->session->role;
             $this->load->view('header_user.php');
             $this->load->view('detail', $model + $detailCat);
         }else{
@@ -56,7 +57,7 @@ class Produits extends CI_Controller
     public function ajout()
     {   
         // controle session acces admin
-        $this->session;
+     
         if ($this->session->role != 'admin') {
             redirect('produits/liste_user');
             session_unset();
@@ -127,7 +128,7 @@ class Produits extends CI_Controller
     public function modif($id)
     {
         // controle session acces admin
-        $this->session;
+      
        if($this->session->role != 'admin'){
             redirect('produits/liste_user');
             session_unset();
@@ -230,39 +231,38 @@ class Produits extends CI_Controller
 
         $this->load->database();
 
-        if($this->input->post()){
-        // regles de validation des champs
-        
+        if($this->input->post()){  // si post
+             
+        // regles de validation des champs      
         $this->form_validation->set_rules('email','Login','required|html_escape|regex_match[/[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}/]',array('required'=>'Champs vide', 'regex_match'=>'Saisie incorrecte'));
         $this->form_validation->set_rules('mdp','mot de passe','required|html_escape|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]', array('required'=>'Champs vide','regex_match'=>'Saisie incorrecte'));
         
             if($this->form_validation->run() != false){ //si pas d'erreur dans les champs email et mdp
     
-            $email = $this->input->post('email');  //valeur champs  email
-            $ident = $this->produits_model->mdp($email);    // envoie $email au model mdp
-
+                $email = $this->input->post('email');  //valeur champs  email
+                $ident = $this->produits_model->mdp($email);    // envoie $email au model mdp
                 //recup le mot de passe hash de produits_model de l'enregistrement / function mdp retourne null si login pas présent
+                
                 if($ident['ident'] != null){ // si le login existe
 
                     if (password_verify($this->input->post('mdp'),$ident['ident']->ins_mdp)){ //mot de passe verfifé
+
                     // ouvre une session et set les valeurs pour session
-                    $this->session;
                     $this->session->set_userdata('role',$ident['ident']->ins_role);
                     $this->session->set_userdata('nom',$ident['ident']->ins_nom);
                     $this->session->set_userdata('prenom',$ident['ident']->ins_prenom);
-                    $this->session->set_userdata('email',$ident['ident']->ins_login);
+                    $this->session->set_userdata('email',$ident['ident']->ins_login);                   
                     
                         if($this->session->role  == 'admin'){
+                           
                             //load header et liste admin                     
                             redirect("produits/liste"); // redirection liste  
 
                         }else{
+                           
                             //load header et liste user
                            redirect('produits/liste_user');
                         }
-
-                    //charge la liste et header pour admin
-                    
                     
                     }else{ // erreur mot de passe
                         $mess['mess'] = 'problème connexion mdp';                     
@@ -286,12 +286,14 @@ class Produits extends CI_Controller
         }
          
     }
+
     public function deconnexion(){
-            $this->session;
-            $this->session->unset_userdata('role','nom','prenom','email');
+            $reset= "0";
+            $this->session->set_userdata('role',$reset);
             $this->session->sess_destroy();
-            session_unset('role');
-            session_destroy();
+            $this->cache->clean();
+           // session_destroy();
+           
             redirect('produits/liste_user');
 
 
