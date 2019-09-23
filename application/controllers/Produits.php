@@ -198,23 +198,30 @@ class Produits extends CI_Controller
 
         if($this->input->post()){
         // regles de validation des champs
-        $this->form_validation->set_rules('email','Login','required|html_escape|regex_match[/[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}/]|is_unique[inscription.ins_login]',array('required'=>'Champs vide', 'regex_match'=>'Saisie incorrecte','is_unique'=>'compte inexistant'));
+        
+        $this->form_validation->set_rules('email','Login','required|html_escape|regex_match[/[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}/]',array('required'=>'Champs vide', 'regex_match'=>'Saisie incorrecte'));
         $this->form_validation->set_rules('mdp','mot de passe','required|html_escape|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]', array('required'=>'champs vide','regex_match'=>'Saisie incorrecte'));
         
             if($this->form_validation->run() != false){ //si pas d'erreur dans les champs email et mdp
     
             $email = $this->input->post('email');  //valeur champs  email
-            $this->produits_model->mdp($email);    // envoie $email au model mdp
-            //recup le mot de passe hash de produits_model / fonction mdp
-                if (password_verify($this->input->post('mdp'),$ident['ident']->ins_mdp)){ //mot de passe verfifé
+            $ident = $this->produits_model->mdp($email);    // envoie $email au model mdp
+            //recup le mot de passe hash de produits_model / function mdp
+                if($ident['ident'] != null){
+                    if (password_verify($this->input->post('mdp'),$ident['ident']->ins_mdp)){ //mot de passe verfifé
                     // ouvre une session et set les valeurs pour session
                     //messgae connexion
                     //charge les liste pour admin 
+                    echo 'connexion'.$ident['ident']->ins_login;
+                    }else{ // erreur mot de passe
 
-                }else{
-                    //message erreur mdp ou login et recharge la page liste pour utilisateur
-                    $this->load->view('header');
-                    $this->load->view(''); 
+                        echo 'problème connexion mdp';
+                    }
+                }else{ //message erreur mdp ou login
+                    //recharge la page liste pour utilisateur
+                    //$this->load->view('header');
+                    //$this->load->view('');
+                    echo 'problème connexion id';
                 }
 
             }else{ // form_validation false

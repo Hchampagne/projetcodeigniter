@@ -79,7 +79,7 @@ public function suppression($id){
 public function mdp($email){
         // row correspondant au (login/email)
         $this->load->database();
-        $this->db>where('ins_login',$email);
+        $this->db->where('ins_login',$email);
         $ident['ident'] = $this->db->get('inscription')->row();
         return $ident;
 }
