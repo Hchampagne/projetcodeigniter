@@ -12,20 +12,19 @@
                     <p class=" pull-center"></p>
                     <!-- login -->
                     <div class="form-group">
-                        <input type="text" name="email" id="email" class="form-control input-lg" placeholder="adresse mail" value="<?= isset($_POST['email']) ? $_POST['email'] : ""; ?>">
+                        <input type="text" name="email" id="email" class="form-control input-lg" placeholder="adresse mail" value="<?= set_value('email') ; ?>">
                         <p id="alertEmail">&nbsp<?= form_error('email', '<span>', '</span>') ?></p>
                     </div>
                     <!-- mot de passe -->
                     <div class="form-group">
-                        <input type="password" name="mdp" id="mdp" class="form-control input-lg" placeholder="mot de passe" value="<?= isset($_POST['mdp']) ? $_POST['mdp'] : "";  ?>">
+                        <input type="password" name="mdp" id="mdp" class="form-control input-lg" placeholder="mot de passe" value="<?= set_value('mdp') ;?>">
                         <span id="alertMdp">&nbsp<?= form_error('mdp', '<span>', '</span>') ?></span>
                     </div>
                     <div>
                         <button type="submit" class="btn btn-md btn-primary" value="connexion" name="connexion">connexion</button>
-                        <button type="submit" class="btn btn-md btn-primary" value="annuler" name="annuler">annuler</button>
                     </div>
                     <div>
-                        <p>&nbsp</p>
+                        <p>&nbsp*<?= isset($mess) ? $mess : "" ; ?></p>
                     </div>
                     <div>
                         <a href="#">Mot de passe oublié ou verrouillez !?</a>

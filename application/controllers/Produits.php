@@ -162,7 +162,7 @@ class Produits extends CI_Controller
                
                 $this->produits_model->modif_update($data,$id,$extention);
 
-                redirect("produits/liste");
+                redirect("produits/liste");//
             }              
         } 
         else {
@@ -206,22 +206,33 @@ class Produits extends CI_Controller
     
             $email = $this->input->post('email');  //valeur champs  email
             $ident = $this->produits_model->mdp($email);    // envoie $email au model mdp
-            //recup le mot de passe hash de produits_model / function mdp
-                if($ident['ident'] != null){
+
+                //recup le mot de passe hash de produits_model de l'enregistrement / function mdp retourne null si login pas présent
+                if($ident['ident'] != null){ // si le login existe
+
                     if (password_verify($this->input->post('mdp'),$ident['ident']->ins_mdp)){ //mot de passe verfifé
                     // ouvre une session et set les valeurs pour session
-                    //messgae connexion
-                    //charge les liste pour admin 
-                    echo 'connexion'.$ident['ident']->ins_login;
-                    }else{ // erreur mot de passe
+                    $this->session;
+                    $this->session->set_userdata('role',$ident['ident']->ins_role);
+                    $this->session->set_userdata('nom',$ident['ident']->ins_nom);
+                    $this->session->set_userdata('prenom',$ident['ident']->ins_prenom);
+                    $this->session->set_userdata('email',$ident['ident']->ins_login);
+                    
+                    //message connexion
 
-                        echo 'problème connexion mdp';
+                    //charge la liste et header pour admin
+                    $this->load->view('header');
+                    $this->load->view('liste');
+                    
+                    }else{ // erreur mot de passe
+                        $mess['mess'] = 'problème connexion mdp';                     
+                        $this->load->view('header');
+                        $this->load->view('form_mdp',$mess);                     
                     }
-                }else{ //message erreur mdp ou login
-                    //recharge la page liste pour utilisateur
-                    //$this->load->view('header');
-                    //$this->load->view('');
-                    echo 'problème connexion id';
+                }else{ //message erreur le login n'existe pas
+                    $mess['mess'] = 'problème connexion login';
+                    $this->load->view('header');
+                    $this->load->view('form_mdp',$mess);
                 }
 
             }else{ // form_validation false

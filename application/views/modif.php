@@ -41,7 +41,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for=pro_ref>Référence produit</label>
-                    <input class="form-control" type='text' name='pro_ref' id="pro_ref" value="<?php echo $produit->pro_ref; ?>">
+                    <input class="form-control" type='text' name='pro_ref' id="pro_ref" value="<?= $produit->pro_ref; ?>">
                     <span id="alertRef">&nbsp<?= form_error('pro_ref', '<span>', '</span>') ?></span>
                 </div>
             </div>
@@ -49,7 +49,7 @@
 
                 <div class="form-group">
                     <label for=pro_libelle>Nom du produit</label>
-                    <input class="form-control" type='text' name='pro_libelle' id="pro_libelle" value="<?php echo $produit->pro_libelle; ?>">
+                    <input class="form-control" type='text' name='pro_libelle' id="pro_libelle" value="<?= $produit->pro_libelle; ?>">
                     <span id="alertLibelle">&nbsp<?= form_error('pro_libelle', '<span>', '</span>') ?></span>
                 </div>
             </div>
@@ -58,21 +58,21 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for=pro_prix>Prix</label>
-                    <input class="form-control" type='text' name='pro_prix' id="pro_prix" value="<?php echo $produit->pro_prix; ?>">
+                    <input class="form-control" type='text' name='pro_prix' id="pro_prix" value="<?= $produit->pro_prix; ?>">
                     <span id="alertPrix">&nbsp<?= form_error('pro_prix', '<span>', '</span>') ?></span>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for=pro_stock>Stock</label>
-                    <input class="form-control" type='text' name='pro_stock' id="pro_stock" value="<?php echo $produit->pro_stock; ?>">
+                    <input class="form-control" type='text' name='pro_stock' id="pro_stock" value="<?= $produit->pro_stock; ?>">
                     <span id="alertStock">&nbsp<?= form_error('pro_stock', '<span>', '</span>') ?></span>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for=pro_couleur>Couleur</label>
-                    <input class="form-control" type='text' name='pro_couleur' id="pro_couleur" value="<?php echo $produit->pro_couleur; ?>">
+                    <input class="form-control" type='text' name='pro_couleur' id="pro_couleur" value="<?= $produit->pro_couleur; ?>">
                     <span id="alertCouleur">&nbsp<?= form_error('pro_couleur', '<span>', '</span>') ?></span>
                 </div>
             </div>
@@ -102,7 +102,7 @@
             <div class="col-md-7">
                 <div class="form-group">
                     <label for=pro_descrip>Description</label>
-                    <textarea class="form-control" id="pro_descrip" name="pro_description" rows="10" cols="50" value=""><?php echo $produit->pro_description; ?></textarea>
+                    <textarea class="form-control" id="pro_descrip" name="pro_description" rows="10" cols="50" value=""><?= $produit->pro_description; ?></textarea>
                     <span id="alertDescrip">&nbsp<?= form_error('pro_description', '<span>', '</span>') ?></span>
                 </div>
             </div>
