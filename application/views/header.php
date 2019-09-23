@@ -3,9 +3,9 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>header.inc</title>
+	<title>header.A</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<link rel="stylesheet" href="<?= base_url("/assets/CSS/style.css") ?>" >
+	<link rel="stylesheet" href="<?= base_url("/assets/CSS/style.css") ?>">
 </head>
 
 <body>
@@ -21,22 +21,21 @@
 		<div class="collapse navbar-collapse" id="menuprincipal">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
-					<a class="nav-link" href="<?= site_url("produits/ajout/") ?>">Ajout</a>
+					<a class="nav-link" href="<?= site_url("produits/ajout/") ?>">Ajout produits</a>
 				</li>
 				<li class=" nav-item active">
-					<a class="nav-link" href="<?= site_url("produits/form_mdp/") ?>">Connexion</a>
+					<a class="nav-link" href="#"></a>
 				</li>
 				</li>
 				<li class="nav-item active">
-					<a class="nav-link disabled" href=" <?= site_url("produits/form_mdp/") ?>"></a>
+					<a class="nav-link disabled" href=" <?= site_url("produits/liste_user/") ?>">Déconnexion</a>
 				</li>
 			</ul>
 
 			<form class="form-inline my-2 my-lg-0">
 				<input class="form-control mr-sm" type="search" placeholder="Rechercher" aria-label="Rechercher">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
-
 			</form>
-			
+
 		</div>
 	</nav>

@@ -36,22 +36,20 @@ class Produits extends CI_Controller
     {
 
         $model = $this->produits_model->detail_produits($id);
-
         $catId = $model['produit']->pro_cat_id;
-
         $detailCat = $this->produits_model->detail_categories($catId);
+
         $this->session;
-        if ($this->session->role == 'admin') {
-            $this->load->view('header.php');
-            $this->load->view('detail', $model + $detailCat);
-        }else{
+        if($this->session->role !== 'admin'){
             $this->load->view('header_user.php');
             $this->load->view('detail', $model + $detailCat);
+        }else{
+            echo $this->session->role;
+            $this->load->view('header.php');
+            $this->load->view('detail', $model + $detailCat);
         }
-        
 
-        //$this->load->view('header.php');
-       // $this->load->view('detail', $model + $detailCat);
+                
     }
 
     //AJOUT
@@ -129,7 +127,7 @@ class Produits extends CI_Controller
     public function modif($id)
     {
         // controle session acces admin
-       $this->session;
+        $this->session;
        if($this->session->role != 'admin'){
             redirect('produits/liste_user');
             session_unset();
@@ -287,5 +285,15 @@ class Produits extends CI_Controller
             $this->load->view('form_mdp');  
         }
          
+    }
+    public function deconnexion(){
+            $this->session;
+            $this->session->unset_userdata('role','nom','prenom','email');
+            $this->session->sess_destroy();
+            session_unset('role');
+            session_destroy();
+            redirect('produits/liste_user');
+
+
     }
 }
