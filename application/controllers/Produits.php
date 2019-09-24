@@ -12,8 +12,8 @@ class Produits extends CI_Controller
         $this->load->model('produits_model');
         $aListe = $this->produits_model->liste();
         $aView["liste_produits"] = $aListe;
-        // Appel de la vue avec transmission du tableau 
 
+        // Appel de la vue avec transmission du tableau 
         $this->load->view('header.php');
         $this->load->view('liste', $aView);
     }
@@ -301,8 +301,14 @@ class Produits extends CI_Controller
     }
 
 // AJOUT PRODUIT AU PANIER   
-    public function ajoutePanier($aView) //ajoute un produit au panier
+    public function ajoutePanier() //ajoute un produit au panier
     {
+        //appel model
+        $this->load->model('produits_model');
+        $aListe = $this->produits_model->liste();
+        $aView["liste_produits"] = $aListe;
+
+
         $data = $this->input->post();
         if ($this->session->panier == null) // création du panier s'il n'existe pas
         {
@@ -311,6 +317,7 @@ class Produits extends CI_Controller
             //On ajoute le produit
             array_push($tab, $data); // Empile un ou plusieurs éléments à la fin d'un tableau
             $this->session->panier = $tab;
+            $this->load->view('header_user');
             $this->load->view('liste_user', $aView);
         } else //si le panier existe
         {
@@ -326,11 +333,13 @@ class Produits extends CI_Controller
             if ($sortie) //si le produit existe déjà, l'utilisateur est averti
             {
                 echo '<div class="alert alert-danger">Ce produit est déjà dans le panier.</div>';
-                $this->load->view('catalogue', $aView);
+                $this->load->view('header_user');
+                $this->load->view('liste_user', $aView);
             } else { //sinon le produit est ajouté dans le panier
                 array_push($tab, $data);
                 $this->session->panier = $tab;
-                $this->load->view('catalogue', $aView);
+                $this->load->view('header_user');
+                $this->load->view('liste_user', $aView);
             }
         }
     }

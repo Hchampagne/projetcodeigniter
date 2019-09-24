@@ -25,7 +25,7 @@
                         ?>
                         <tr>
                             <td>
-                                <?php echo form_open(); ?>
+                                <?=  form_open('produits/ajoutePanier/', 'name="formulaire" id="formulaire"'); ?>
                                 <input class="form-control" name="pro_qte" id="pro_qte" value="1">
                                 <input type="hidden" name="pro_prix" value="<?= $row->pro_prix ?>">
                                 <input type="hidden" name="pro_id" value="<?= $row->pro_id ?>">
