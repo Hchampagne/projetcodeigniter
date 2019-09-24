@@ -5,7 +5,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 class Produits extends CI_Controller
 {
-    //LISTE
+//LISTE ADMINISTRATEUR CRUD
     public function liste()
     {
         //appel model
@@ -18,6 +18,7 @@ class Produits extends CI_Controller
         $this->load->view('liste', $aView);
     }
 
+//LISTE UTILISATEUR BOUTIQUE
     public function liste_user()
     {
         //appel model
@@ -31,37 +32,34 @@ class Produits extends CI_Controller
     }
 
 
-    //DETAIL
+//DETAIL CRUD
     public function detail($id)
     {
        
         $model = $this->produits_model->detail_produits($id);
         $catId = $model['produit']->pro_cat_id;
         $detailCat = $this->produits_model->detail_categories($catId);
+
        
-     
         if($this->session->role != 'admin'){
             echo $this->session->role;
+            
             $this->load->view('header_user.php');
             $this->load->view('detail', $model + $detailCat);
         }else{
-            echo $this->session->role;
+
             $this->load->view('header.php');
             $this->load->view('detail', $model + $detailCat);
-        }
-
-                
+        }              
     }
 
-    //AJOUT
+//AJOUT CRUD
     public function ajout()
-    {   
+    {
         // controle session acces admin
-     
+        
         if ($this->session->role != 'admin') {
-            redirect('produits/liste_user');
-            session_unset();
-            session_destroy();
+            redirect('produits/liste_user');           
         }
         
         $this->load->database();
@@ -124,15 +122,13 @@ class Produits extends CI_Controller
     }
 
 
-    //MODIFICATION
+//MODIFICATION CRUD
     public function modif($id)
     {
         // controle session acces admin
-      
-       if($this->session->role != 'admin'){
+        
+        if($this->session->role != 'admin'){
             redirect('produits/liste_user');
-            session_unset();
-            session_destroy();
         }
 
         $this->load->database();
@@ -217,7 +213,7 @@ class Produits extends CI_Controller
         }
     }
 
-    //suppr
+//SUPPRESSION CRUD
     public function suppr($id)
     {
         
@@ -226,7 +222,7 @@ class Produits extends CI_Controller
         redirect("produits/liste");
     }
 
-    //mot de passe
+// LOGIN ET SESSION ADMIN/USER
     public function form_mdp(){
 
         $this->load->database();
@@ -247,19 +243,20 @@ class Produits extends CI_Controller
 
                     if (password_verify($this->input->post('mdp'),$ident['ident']->ins_mdp)){ //mot de passe verfifé
 
-                    // ouvre une session et set les valeurs pour session
-                    $this->session->set_userdata('role',$ident['ident']->ins_role);
-                    $this->session->set_userdata('nom',$ident['ident']->ins_nom);
-                    $this->session->set_userdata('prenom',$ident['ident']->ins_prenom);
-                    $this->session->set_userdata('email',$ident['ident']->ins_login);                   
+                        // ouvre une session et set les valeurs pour session
+                        $this->session->set_userdata('role', $ident['ident']->ins_role);
+                        $this->session->set_userdata('nom', $ident['ident']->ins_nom);
+                        $this->session->set_userdata('prenom', $ident['ident']->ins_prenom);
+                        $this->session->set_userdata('email', $ident['ident']->ins_login);
+                                     
                     
-                        if($this->session->role  == 'admin'){
-                           
+                        if($ident['ident']->ins_role  == 'admin'){
+                                                
                             //load header et liste admin                     
                             redirect("produits/liste"); // redirection liste  
 
                         }else{
-                           
+                                                       
                             //load header et liste user
                            redirect('produits/liste_user');
                         }
@@ -287,15 +284,105 @@ class Produits extends CI_Controller
          
     }
 
+//DECONNEXION
     public function deconnexion(){
-            $reset= "0";
-            $this->session->set_userdata('role',$reset);
-            $this->session->sess_destroy();
-            $this->cache->clean();
-           // session_destroy();
-           
-            redirect('produits/liste_user');
+      //  $this->output->enable_profiler(TRUE);
+        $this->session->unset_userdata('role');
+        $this->session->unset_userdata('nom');
+        $this->session->unset_userdata('prenom');
+        $this->session->unset_userdata('email');
 
+        if (ini_get("session.use_cookies")) {
+            setcookie(session_name(), '', time() - 42000);
+        }  
+
+        $this->session->sess_destroy();
+        redirect('produits/liste_user');
+    }
+
+// AJOUT PRODUIT AU PANIER   
+    public function ajoutePanier($aView) //ajoute un produit au panier
+    {
+        $data = $this->input->post();
+        if ($this->session->panier == null) // création du panier s'il n'existe pas
+        {
+            $this->session->panier = array();
+            $tab = $this->session->panier;
+            //On ajoute le produit
+            array_push($tab, $data); // Empile un ou plusieurs éléments à la fin d'un tableau
+            $this->session->panier = $tab;
+            $this->load->view('liste_user', $aView);
+        } else //si le panier existe
+        {
+            $tab = $this->session->panier;
+            $idProduit = $this->input->post('pro_id');
+            $sortie = false;
+            foreach ($tab as $produit) //on cherche si le produit existe déjà dans le panier
+            {
+                if ($produit['pro_id'] == $idProduit) {
+                    $sortie = true;
+                }
+            }
+            if ($sortie) //si le produit existe déjà, l'utilisateur est averti
+            {
+                echo '<div class="alert alert-danger">Ce produit est déjà dans le panier.</div>';
+                $this->load->view('catalogue', $aView);
+            } else { //sinon le produit est ajouté dans le panier
+                array_push($tab, $data);
+                $this->session->panier = $tab;
+                $this->load->view('catalogue', $aView);
+            }
+        }
+    }
+
+// QUANTITE PLUS
+    public function qteplus($id)
+    {
+        $tab = $this->session->panier;
+        $temp = array();
+        for ($i = 0; $i < count($tab); $i++) //on parcourt le tableau produit après produit
+        {
+            if ($tab[$i]['pro_id'] !== $id) {
+                array_push($temp, $tab[$i]);
+            } else {
+                $tab[$i]['pro_qte']++;
+                array_push($temp, $tab[$i]);
+            }
+        }
+        $tab = $temp;
+        unset($temp);
+        $this->session->panier = $tab;
+        $this->affiche();
+    }
+
+// EFFACE PRODUIT
+    public function effaceProduit($id)
+    {
+        $tab = $this->session->panier;
+        $temp = array(); //création d'un tableau temporaire vide
+        for ($i = 0; $i < count($tab); $i++) //on cherche dans le panier les produits à ne pas supprimer
+        {
+            if ($tab[$i]['pro_id'] !== $id) {
+                array_push($temp, $tab[$i]); // ces produits sont ajoutés dans le tableau temporaire
+            }
+        }
+        $tab = $temp;
+        unset($temp);
+        $this->session->panier = $tab; // le panier prend la valeur du tableau temporaire et ne contient donc plus le produit à supprimer
+        $this->affiche();
+    }
+
+//AFFICHE PANIER
+    public function affiche(){
+        $this->load->view('header_user');
+        $this->load->view('panier');
+    }
+
+//EFFACE PANIER
+    public function efface(){
+
+        $this->session->panier = array();
+        $this->affiche();
 
     }
-}
+}    

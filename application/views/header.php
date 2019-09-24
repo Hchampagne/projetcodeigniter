@@ -28,7 +28,7 @@
 				</li>
 				</li>
 				<li class="nav-item active">
-					<a class="nav-link disabled" href=" <?= site_url("produits/liste_user/") ?>">Déconnexion</a>
+					<a class="nav-link disabled" href=" <?= site_url("produits/deconnexion/") ?>">Déconnexion</a>
 				</li>
 			</ul>
 

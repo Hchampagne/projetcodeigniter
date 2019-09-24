@@ -21,14 +21,14 @@
 		<div class="collapse navbar-collapse" id="menuprincipal">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
-					<a class="nav-link"href="#"></a>
+					<a class="nav-link" href="#"></a>
 				</li>
 				<li class=" nav-item active">
 					<a class="nav-link" href="<?= site_url("/produits/form_mdp/") ?>">Connexion</a>
 				</li>
 				</li>
 				<li class="nav-item active">
-					<a class="nav-link disabled" href="#"></a>
+					<a class="nav-link disabled" href="<?= site_url("/produits/affiche/") ?>">Panier</a>
 				</li>
 			</ul>
 
@@ -37,6 +37,6 @@
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
 
 			</form>
-			
+
 		</div>
 	</nav>

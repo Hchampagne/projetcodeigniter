@@ -4,6 +4,7 @@
             <table class="table table-bordered table-striped">
                 <thead class="thead-light">
                     <tr>
+                        <th class="align-middle"></th>
                         <th class="align-middle">Photo</th>
                         <th class="align-middle">Id</th>
                         <th class="align-middle">Référence</th>
@@ -23,6 +24,17 @@
 
                         ?>
                         <tr>
+                            <td>
+                                <?php echo form_open(); ?>
+                                <input class="form-control" name="pro_qte" id="pro_qte" value="1">
+                                <input type="hidden" name="pro_prix" value="<?= $row->pro_prix ?>">
+                                <input type="hidden" name="pro_id" value="<?= $row->pro_id ?>">
+                                <input type="hidden" name="pro_libelle" value="<?= $row->pro_libelle ?>">
+                                <div class="form-group">
+                                    <input class="btn btn-default btn-sm" type="submit" value="Ajouter au panier">
+                                </div>
+                                </form>
+                            </td>
                             <td class="align-middle">
                                 <img class="img-responsive" style="width: 80px; height: 80px;" src="<?= base_url("assets/images/") . $row->pro_id . '.' . $row->pro_photo ?>" alt="" title="<?= $row->pro_libelle ?>">
                             </td>
