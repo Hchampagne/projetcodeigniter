@@ -431,7 +431,7 @@ class Produits extends CI_Controller
 
 //EFFACE PANIER
     public function efface(){
-
+        $this->session->compteur = 0;
         $this->session->panier = array();
         $this->affiche();
 
