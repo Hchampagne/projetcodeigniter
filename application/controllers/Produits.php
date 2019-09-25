@@ -242,22 +242,16 @@ class Produits extends CI_Controller
                 if($ident['ident'] != null){ // si le login existe
 
                     if (password_verify($this->input->post('mdp'),$ident['ident']->ins_mdp)){ //mot de passe verfifé
-
                         // ouvre une session et set les valeurs pour session
                         $this->session->set_userdata('role', $ident['ident']->ins_role);
                         $this->session->set_userdata('nom', $ident['ident']->ins_nom);
                         $this->session->set_userdata('prenom', $ident['ident']->ins_prenom);
                         $this->session->set_userdata('email', $ident['ident']->ins_login);
-                                     
-                    
-                        if($ident['ident']->ins_role  == 'admin'){
-                                                
-                            //load header et liste admin                     
+                                                      
+                        if($ident['ident']->ins_role  == 'admin') {  //load header et liste admin                      
                             redirect("produits/liste"); // redirection liste  
 
-                        }else{
-                                                       
-                            //load header et liste user
+                        }else{ //load header et liste user                                         
                            redirect('produits/liste_user');
                         }
                     
@@ -303,7 +297,7 @@ class Produits extends CI_Controller
 // AJOUT PRODUIT AU PANIER   
     public function ajoutePanier() //ajoute un produit au panier
     {
-        //appel model
+        //appel model données pour tableau
         $this->load->model('produits_model');
         $aListe = $this->produits_model->liste();
         $aView["liste_produits"] = $aListe;
@@ -349,20 +343,44 @@ class Produits extends CI_Controller
     {
         $tab = $this->session->panier;
         $temp = array();
-        for ($i = 0; $i < count($tab); $i++) //on parcourt le tableau produit après produit
+        for ($i = 0; $i < count($tab); $i++)    //on parcourt le tableau produit après produit
         {
-            if ($tab[$i]['pro_id'] !== $id) {
-                array_push($temp, $tab[$i]);
+            if ($tab[$i]['pro_id'] !== $id) {   //lie le id trnsmit au id du tableau balayé
+                array_push($temp, $tab[$i]);    //met le produit ds un tableau temporaire
             } else {
-                $tab[$i]['pro_qte']++;
-                array_push($temp, $tab[$i]);
+                $tab[$i]['pro_qte']++;          // incremente la quantité et recharge la vue panier
+                array_push($temp, $tab[$i]);    ////met le produit ds un tableau temporaire
             }
         }
-        $tab = $temp;
-        unset($temp);
-        $this->session->panier = $tab;
-        $this->affiche();
+        $tab = $temp;                           //associe le tableau avec le tableau temporaire
+        unset($temp);                           //supprime le tableau temporaiare
+        $this->session->panier = $tab;          //associe la variable session avec le tableau $tab
+        $this->affiche();                       //affiche le panier
     }
+
+// QUANTITE MOINS 
+    public function qtemoins($id)
+    {
+        $tab = $this->session->panier;
+        $temp = array();
+        for ($i = 0; $i < count($tab); $i++)    //on parcourt le tableau produit après produit
+        {
+            if ($tab[$i]['pro_id'] !== $id) {   //lie le id trnsmit au id du tableau balayé
+                array_push($temp, $tab[$i]);    //met le produit ds un tableau temporaire
+            } else {
+                $tab[$i]['pro_qte']--;         // décrémente la quantité et recharge la vue panier
+                if($tab[$i]['pro_qte'] <= 0){   //bloque quantité à zéro si décrémente inférieur ou égal à zéro
+                    $tab[$i]['pro_qte'] = 0;
+                }
+                array_push($temp, $tab[$i]);    //met le produit ds un tableau temporaire
+            }
+        }
+        $tab = $temp;                           //associe le tableau avec le tableau temporaire
+        unset($temp);                           //supprime le tableau temporaiare
+        $this->session->panier = $tab;          //associe la variable session avec le tableau $tab
+        $this->affiche();                       //affiche le panier
+    }
+
 
 // EFFACE PRODUIT
     public function effaceProduit($id)
