@@ -281,6 +281,20 @@ class Produits extends CI_Controller
          
     }
 
+//ENREGISTREMENT
+    PUBLIc FUNCTION form_enr(){
+        if($this->input->post()){
+           //traitement des données
+        }else{
+            //premier chragement
+            $compteur['compteur'] = $this->session->compteur;
+            $this->load->view('header_user',$compteur);
+            $this->load->view('form_enr');
+        }
+
+
+    }
+
 //DECONNEXION
     public function deconnexion(){
       //  $this->output->enable_profiler(TRUE);
@@ -307,6 +321,8 @@ class Produits extends CI_Controller
 
 
         $data = $this->input->post();
+        if ($this->input->post('pro_qte') < 0){$data['pro_qte'] = 0;}
+
         if ($this->session->panier == null){
             // création du panier s'il n'existe pas
             $this->session->panier = array();
@@ -339,10 +355,12 @@ class Produits extends CI_Controller
             }
             if ($sortie) //si le produit existe déjà, l'utilisateur est averti
             {
-                echo '<div class="alert alert-danger">Ce produit est déjà dans le panier.</div>';
+                $mess= "*Ce produit est déjà dans le panier*";
+                $message['mess'] = $mess;
 
                 $compteur['compteur'] = $this->session->compteur; 
-                $this->load->view('header_user',$compteur);
+
+                $this->load->view('header_user',$compteur+$message);
                 $this->load->view('liste_user', $aView);
             } else { //sinon le produit est ajouté dans le panier
                 array_push($tab, $data);

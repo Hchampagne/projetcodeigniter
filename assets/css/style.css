@@ -2,3 +2,8 @@ span, .span{
     font-style: italic;
     color:    red;
 }
+
+.input {
+    height : 80px;
+    width : 80px;
+}
