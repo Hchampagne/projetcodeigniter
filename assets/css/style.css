@@ -1,9 +1,15 @@
-span, .span{
+.alert{
     font-style: italic;
     color:    red;
 }
 
-.input {
+.panier {
+    font-style: italic;
+    color: rgba(255, 0, 200, 0.637);
+}
+
+
+.tab {
     height : 80px;
     width : 80px;
 }

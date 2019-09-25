@@ -4,7 +4,7 @@
             <table class="table table-bordered table-striped">
                 <thead class="thead-light">
                     <tr>
-                        <th class="align-middle input">Panier</th>
+                        <th class="align-middle tab">Panier</th>
                         <th class="align-middle">Photo</th>
                         <th class="align-middle">Référence</th>
                         <th class="align-middle">Libellé</th>
