@@ -27,10 +27,10 @@ class Produits extends CI_Controller
 
         $aView["liste_produits"] = $aListe;
         // Appel de la vue avec transmission du tableau 
-        $this->load->view('header_user.php');
+        $compteur['compteur'] = $this->session->compteur;  
+        $this->load->view('header_user',$compteur);
         $this->load->view('liste_user', $aView);
     }
-
 
 //DETAIL CRUD
     public function detail($id)
@@ -42,9 +42,8 @@ class Produits extends CI_Controller
 
        
         if($this->session->role != 'admin'){
-            echo $this->session->role;
-            
-            $this->load->view('header_user.php');
+            $compteur['compteur'] = $this->session->compteur;  
+            $this->load->view('header_user',$compteur);
             $this->load->view('detail', $model + $detailCat);
         }else{
 
@@ -256,23 +255,27 @@ class Produits extends CI_Controller
                         }
                     
                     }else{ // erreur mot de passe
-                        $mess['mess'] = 'problème connexion mdp';                     
-                        $this->load->view('header_user');
+                        $mess['mess'] = 'problème connexion mdp';
+                        $compteur['compteur'] = $this->session->compteur;                       
+                        $this->load->view('header_user',$compteur);
                         $this->load->view('form_mdp',$mess);                     
                     }
                 }else{ //message erreur le login n'existe pas
                     $mess['mess'] = 'problème connexion login';
-                    $this->load->view('header_user');
+                    $compteur['compteur'] = $this->session->compteur;  
+                    $this->load->view('header_user',$compteur);
                     $this->load->view('form_mdp',$mess);
                 }
 
-            }else{ // form_validation false
-                $this->load->view('header_user');
+            }else{ // form_validation fals
+                $compteur['compteur'] = $this->session->compteur;  
+                $this->load->view('header_user',$compteur);
                 $this->load->view('form_mdp'); 
             }          
        
         }else{ //pas de post 1er affichage de la vue
-            $this->load->view('header_user');
+            $compteur['compteur'] = $this->session->compteur;  
+            $this->load->view('header_user',$compteur);
             $this->load->view('form_mdp');  
         }
          
@@ -290,32 +293,42 @@ class Produits extends CI_Controller
             setcookie(session_name(), '', time() - 42000);
         }  
 
-        $this->session->sess_destroy();
+        //$this->session->sess_destroy();
         redirect('produits/liste_user');
     }
 
 // AJOUT PRODUIT AU PANIER   
     public function ajoutePanier() //ajoute un produit au panier
     {
-        //appel model données pour tableau
+        //appel model données pour tableau/liste_user
         $this->load->model('produits_model');
         $aListe = $this->produits_model->liste();
         $aView["liste_produits"] = $aListe;
 
 
         $data = $this->input->post();
-        if ($this->session->panier == null) // création du panier s'il n'existe pas
-        {
+        if ($this->session->panier == null){
+            // création du panier s'il n'existe pas
             $this->session->panier = array();
             $tab = $this->session->panier;
+            //creation ducompteur
+            $this->session ->compteur = 0;
+            $nb = $this ->session->compteur;
+            
             //On ajoute le produit
             array_push($tab, $data); // Empile un ou plusieurs éléments à la fin d'un tableau
-            $this->session->panier = $tab;
-            $this->load->view('header_user');
+            $this->session->panier = $tab; //stock $tab ds la variable session panier premier passage
+           
+            $nb = 1;                            // premier passage compteur à 1
+            $this->session->compteur = $nb  ;   // stock valeur compteur ds variable session compteur à un premier passage
+            //prepare pour compteur dans header_user
+            $compteur['compteur'] = $this->session->compteur;
+
+            $this->load->view('header_user',$compteur);
             $this->load->view('liste_user', $aView);
         } else //si le panier existe
         {
-            $tab = $this->session->panier;
+            $tab = $this->session->panier;      
             $idProduit = $this->input->post('pro_id');
             $sortie = false;
             foreach ($tab as $produit) //on cherche si le produit existe déjà dans le panier
@@ -327,12 +340,20 @@ class Produits extends CI_Controller
             if ($sortie) //si le produit existe déjà, l'utilisateur est averti
             {
                 echo '<div class="alert alert-danger">Ce produit est déjà dans le panier.</div>';
-                $this->load->view('header_user');
+
+                $compteur['compteur'] = $this->session->compteur; 
+                $this->load->view('header_user',$compteur);
                 $this->load->view('liste_user', $aView);
             } else { //sinon le produit est ajouté dans le panier
                 array_push($tab, $data);
+                //incremente le compteur
+                $nb = $this->session->compteur;
+                $nb = count($tab);
+                $this->session->compteur = $nb;
+                $compteur['compteur'] = $this->session->compteur;        //prpare pour compteur dans header_user
+
                 $this->session->panier = $tab;
-                $this->load->view('header_user');
+                $this->load->view('header_user',$compteur);
                 $this->load->view('liste_user', $aView);
             }
         }
@@ -396,12 +417,15 @@ class Produits extends CI_Controller
         $tab = $temp;
         unset($temp);
         $this->session->panier = $tab; // le panier prend la valeur du tableau temporaire et ne contient donc plus le produit à supprimer
+        $nb = count($tab);
+        $this->session->compteur = $nb;
         $this->affiche();
     }
 
 //AFFICHE PANIER
-    public function affiche(){
-        $this->load->view('header_user');
+    public function affiche(){       
+        $compteur['compteur'] = $this->session->compteur;  
+        $this->load->view('header_user',$compteur);
         $this->load->view('panier');
     }
 

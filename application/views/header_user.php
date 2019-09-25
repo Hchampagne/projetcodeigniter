@@ -24,19 +24,29 @@
 					<a class="nav-link" href="#"></a>
 				</li>
 				<li class=" nav-item active">
-					<a class="nav-link" href="<?= site_url("/produits/form_mdp/") ?>">Connexion</a>
+					<a class="nav-link" href="#"></a>
 				</li>
 				</li>
 				<li class="nav-item active">
-					<a class="nav-link disabled" href="<?= site_url("/produits/affiche/") ?>">Panier</a>
+					<a class="nav-link disabled" href="#"></a>
+				</li>
+				<li class=" nav-item active">
+					<a class="nav-link" href="<?= site_url("/produits/form_mdp/") ?>">Connexion</a>
 				</li>
 			</ul>
+			<div>
+				 <a class="navbar-brand" href="<?= site_url("/produits/affiche/") ?>">
+					<div>
+						<span>&nbsp<?= isset($compteur) ? $compteur." article(s)" : "0 article" ?></span>
+						<img alt="logo jarditou" title="logo jarditou" src="<?= base_url("/assets/images/img_site/") . "panier.png" ?>" width="" height="35" alt="">
+					</div>
+				</a>
+			</div>	
+				<form class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm" type="search" placeholder="Rechercher" aria-label="Rechercher">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
 
-			<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm" type="search" placeholder="Rechercher" aria-label="Rechercher">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
+				</form>
 
-			</form>
-
-		</div>
+			</div>
 	</nav>
