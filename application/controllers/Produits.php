@@ -66,12 +66,18 @@ class Produits extends CI_Controller
         if ($this->input->post()) {
 
             // validation des champs formulaires requis/regex/longueur et unique pour référence set message erreurs
-            $this->form_validation->set_rules('pro_ref', 'Référence', 'required|html_escape|regex_match[/^[\ \/_ \-A-Za-z0-9êéèçàäëï]*$/]|max_length[10]|is_unique[produits.pro_ref]', array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long', 'is_unique' => 'Déjà utilisé'));
-            $this->form_validation->set_rules('pro_libelle', 'Nom', 'required|html_escape|regex_match[/^[\ \/_ \-A-Za-z0-9êéèçàäëï]*$/]|max_length[200]', array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
-            $this->form_validation->set_rules('pro_prix', 'Prix', 'required|html_escape|regex_match[/^[0-9]{1,6}(.[0-9]{2})$/]|max_length[9]', array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
-            $this->form_validation->set_rules('pro_stock', 'Stock', 'required|html_escape|regex_match[/^[0-9]{1,11}$/]|max_length[11]', array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
-            $this->form_validation->set_rules('pro_couleur', 'Couleur', 'required|html_escape|regex_match[/^[\ \/_ \-A-Za-z0-9êéèçàäëï]*$/]|max_length[30]', array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
-            $this->form_validation->set_rules('pro_description', 'Description', 'required|html_escape|regex_match[/^[^<>\/]+[\w\W]{1,999}$/]|max_length[1000]', array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
+            $this->form_validation->set_rules('pro_ref', 'Référence', 'required|html_escape|regex_match[/^[\ \/_ \-A-Za-z0-9êéèçàäëï]*$/]|max_length[10]|is_unique[produits.pro_ref]', 
+                array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long', 'is_unique' => 'Déjà utilisé'));
+            $this->form_validation->set_rules('pro_libelle', 'Nom', 'required|html_escape|regex_match[/^[\ \/_ \-A-Za-z0-9êéèçàäëï]*$/]|max_length[200]', 
+                array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
+            $this->form_validation->set_rules('pro_prix', 'Prix', 'required|html_escape|regex_match[/^[0-9]{1,6}(.[0-9]{2})$/]|max_length[9]', 
+                array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
+            $this->form_validation->set_rules('pro_stock', 'Stock', 'required|html_escape|regex_match[/^[0-9]{1,11}$/]|max_length[11]', 
+                array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
+            $this->form_validation->set_rules('pro_couleur', 'Couleur', 'required|html_escape|regex_match[/^[\ \/_ \-A-Za-z0-9êéèçàäëï]*$/]|max_length[30]', 
+                array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
+            $this->form_validation->set_rules('pro_description', 'Description', 'required|html_escape|regex_match[/^[^<>\/]+[\w\W]{1,999}$/]|max_length[1000]', 
+                array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
 
             //test photo valide
             $config['upload_path'] = './assets/images/';
@@ -100,7 +106,7 @@ class Produits extends CI_Controller
                 $extention = substr(strrchr($_FILES['fichier']['name'], '.'), 1);
 
                 $this->load->model('produits_model');
-                $id =$this->produits_model->ajout_insert($data,$extention);
+                $id = $this->produits_model->ajout_insert($data,$extention);               
                              
                 //prarmètrage pour l'upload de la photo             
                 $config['file_name'] = $id . '.' . $extention;    //rename photo             
@@ -109,7 +115,7 @@ class Produits extends CI_Controller
                 //ajout extention en base et de renome /deplace la photo
                 $this->upload->do_upload('fichier');
                 
-                //redirect("produits/liste"); // redirection liste             
+                redirect("produits/liste"); // redirection liste             
             }
         } 
         else {  //il n'y a pas de valeurs postées premier affichage du formulaire ajout
@@ -229,8 +235,10 @@ class Produits extends CI_Controller
         if($this->input->post()){  // si post
              
         // regles de validation des champs      
-        $this->form_validation->set_rules('email','Login','required|html_escape|regex_match[/[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}/]',array('required'=>'Champs vide', 'regex_match'=>'Saisie incorrecte'));
-        $this->form_validation->set_rules('mdp','mot de passe','required|html_escape|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]', array('required'=>'Champs vide','regex_match'=>'Saisie incorrecte'));
+        $this->form_validation->set_rules('email','Login','required|html_escape|regex_match[/[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}/]',
+            array('required'=>'Champs vide', 'regex_match'=>'Saisie incorrecte'));
+        $this->form_validation->set_rules('mdp','mot de passe','required|html_escape|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]', 
+            array('required'=>'Champs vide','regex_match'=>'Saisie incorrecte'));
         
             if($this->form_validation->run() != false){ //si pas d'erreur dans les champs email et mdp
     
@@ -283,10 +291,58 @@ class Produits extends CI_Controller
 
 //ENREGISTREMENT
     PUBLIc FUNCTION form_enr(){
+        $this ->load->database();
+
+        
+
         if($this->input->post()){
-           //traitement des données
+            //traitement des données
+            $this->form_validation->set_rules('ins_nom', 'nom', 'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]',
+                 array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte'));
+                
+            $this->form_validation->set_rules('ins_prenom', 'prenom', 'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]', 
+                array('required' => 'champs vide','regex_match'=>'Saisie incorrecte'));
+                
+            $this->form_validation->set_rules('ins_adresse', 'adresse', 'required|html_escape|regex_match[/([1-9]|([1-9][0-9])|([1-9][0-9][0-9]))*\s[A-Za-zéèçàäëï]+(\s[A-Za-zéèçàäëï]+)*(\s[A-Za-zéèçàäëï]+)*/]',
+                 array('required' => 'Champs vide','regex_match'=>'Saisie incorrecte'));
+                
+            $this->form_validation->set_rules('ins_cp', 'code postal', 'required|html_escape|regex_match[/(([0][1-9])|([1-9][0-9]))[0-9]{3}/]', 
+            array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte'));
+               
+            $this->form_validation->set_rules('ins_ville', 'ville', 'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Za-zéèçàäëï]+)*([\s-][A-Za-zéèçàäëï]+)*([\s-A-Za-zéèçàäëï]+)*/]', 
+                array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte'));
+               
+            $this->form_validation->set_rules('ins_portable', 'Tel mobile', 'required|html_escape|regex_match[/(\+\d+(\s|-))?0\d(\s|-)?(\d{2}(\s|-)?){4}/]', 
+                array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte'));
+                
+            $this->form_validation->set_rules('ins_fixe', 'Tel fixe ', 'html_escape|regex_match[/(\+\d+(\s|-))?0\d(\s|-)?(\d{2}(\s|-)?){4}/]', 
+            array('regex_match' => 'Saisie incorrecte'));
+               
+            $this->form_validation->set_rules('ins_login', 'email', 'required|html_escape|is_unique[inscription.ins_login]|regex_match[/[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}/]',
+                 array('required' => 'Champs vide','is_unique'=>'Déjà utilisée','regex_match'=>'saisie incorrecte'));
+                
+            $this->form_validation->set_rules('ins_mdp', 'nom de passe', 'required|html_escape|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]', 
+                array('required' => 'Champs vide', 'regex_match' => 'saisie incorrecte'));
+
+          
+
+            if ($this->form_validation->run() != false){ //si pas d'erreur dans les champs
+                
+                $data = $this->input->post(NULL,TRUE);
+
+                $mdp = password_hash($this->input->post('ins_mdp'), PASSWORD_DEFAULT);
+                
+                $this->produits_model->inscription($data,$mdp);
+            
+            }else{
+                //erreur dans champ form_enr re charge le formulaire
+                $compteur['compteur'] = $this->session->compteur;
+                $this->load->view('header_user', $compteur);
+                $this->load->view('form_enr');
+            }
+
         }else{
-            //premier chragement
+            //premier chargement
             $compteur['compteur'] = $this->session->compteur;
             $this->load->view('header_user',$compteur);
             $this->load->view('form_enr');

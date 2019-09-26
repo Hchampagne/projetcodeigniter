@@ -68,6 +68,7 @@ public function modif_update($data,$id,$extention){
         return;
 }
 
+//SUPPRESSION CRUD
 public function suppression($id){
         //suppression d'un produit
         $this->load->database();
@@ -76,6 +77,7 @@ public function suppression($id){
         return;
 }
 
+//CONNEXION mdp/session
 public function mdp($email){
         // row correspondant au (login/email)
         $this->load->database();
@@ -83,5 +85,22 @@ public function mdp($email){
         $ident['ident'] = $this->db->get('inscription')->row();
         return $ident;
 }
+
+//INSCRIPTION
+ public function inscription($data,$mdp){
+        //ajout inscription
+        $this->load->database();
+        // date ajout généré par le système
+        date_default_timezone_set('Europe/Paris');
+        $date = new datetime();
+        $ajout = $date->format('Y-m-d');
+
+        $this->db->set('ins_mdp',$mdp);
+        $this->db->set('ins_d_ins', $ajout);
+        $this->db->insert('inscription',$data);
+                
+        return;
+}
+
 
 }
