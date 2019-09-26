@@ -1,6 +1,8 @@
 
 $(document).ready(function () {                       // initialise JQUERY au chargement du document
 
+
+  // CRUD  
     //REGEX
    var regLibelle = /^[\ \/_ \-A-Za-z0-9êéèçàäëï]*$/
    var regRef = /^[\ \/_ \-A-Za-z0-9êéèçàäëï]*$/
@@ -87,6 +89,150 @@ $(document).ready(function () {                       // initialise JQUERY au ch
               $('#alertDescrip').html('&nbsp');
           }
       });
+
+//mdp inscription 
+
+var regNom = /^[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*$/;
+var regPrenom = /^[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*$/;
+var regMail = /^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/;
+var regMdp = /^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/;
+
+
+//formulaire connexion 
+// champ email  
+$('#email').blur(function () {
+    if ($('#email').val() == '') {
+        $('#alertEmail').text("Le champs n'est pas rempli");
+    } else if (regMail.test($('#email1').val()) == false) {
+        $('#alertEmail').text("La saisie est incorrecte");
+    } else {
+        $('#alertEmail').html('&nbsp');
+    }
+});
+
+// champ mot de passe
+$('#mdp').blur(function () {
+    if ($('#mdp').val() == '') {
+        $('#alertMdp').text("Le champs n'est pas rempli");
+    } else if (regMdp.test($('#mdp').val()) == false) {
+        $('#alertMdp').text("La saisie est incorrecte");
+    } else {
+        $('#alertMdp').html('&nbsp');
+    }
+});
+
+
+
+//formulaire inscription
+//champ nom                                                                                                                         
+$('#ins_nom').blur(function () {
+    if ($('#ins_nom').val() == '') {
+        $('#alertNom').text("Le champs est vide");
+    } else if (regNom.test($('#ins_nom').val()) == false) {
+        $('#alertNom').text("La saisie est incorrecte");
+    } else {
+        $('#alertNom').text("");
+    }
+});
+
+//champ prenom   
+$('#ins_prenom').blur(function () {
+    if ($('#ins_prenom').val() == '') {
+        $('#alertPrenom').text("Le champs est vide");
+    } else if (regPrenom.test($('#ins_prenom').val()) == false) {
+        $('#alertPrenom').text("La sasie est incorrecte");
+    } else {
+        $('#alertPrenom').text("");
+    }
+});
+
+//champ adresse  
+$('#ins_adresse').blur(function () {
+    if ($('#ins_adresse').val() == '') {
+        $('#alertAdresse').text("Le champs est vide");
+    } else if (regPrenom.test($('#ins_adresse').val()) == false) {
+        $('#alertAresse').text("La sasie est incorrecte");
+    } else {
+        $('#alertAdresse').text("");
+    }
+});
+
+//champ code postal 
+$('#ins_cp').blur(function () {
+    if ($('#ins_cp').val() == '') {
+        $('#alertCp').text("Le champs est vide");
+    } else if (regPrenom.test($('#ins_cp').val()) == false) {
+        $('#alertCp').text("La sasie est incorrecte");
+    } else {
+        $('#alertCp').text("");
+    }
+});
+
+//champ ville 
+$('#ins_ville').blur(function () {
+    if ($('#ins_ville').val() == '') {
+        $('#alertVille').text("Le champs est vide");
+    } else if (regPrenom.test($('#ins_ville').val()) == false) {
+        $('#alertVille').text("La sasie est incorrecte");
+    } else {
+        $('#alertVille').text("");
+    }
+});
+
+//champ tel mobile
+$('#ins_portable').blur(function () {
+    if ($('#ins_portable').val() == '') {
+        $('#alertPortable').text("Le champs est vide");
+    } else if (regTel.test($('#ins_portable').val()) == false) {
+        $('#alertPortable').text("La sasie est incorrecte");
+    } else {
+        $('#alertPortable').text("");
+    }
+});
+
+//champ tel fixe
+$('#ins_Fixe').blur(function () {
+     if (regTel.test($('#ins_Fixe').val()) == false) {
+        $('#alertFixe').text("La sasie est incorrecte");
+    } else {
+        $('#alertFixe').text("");
+    }
+});
+
+// champ email  
+$('#ins_login').blur(function () {
+    if ($('#ins_login').val() == '') {
+        $('#alertLogin').text("Le champs est vide");
+    } else if (regMail.test($('#ins_login').val()) == false) {
+        $('#alertLogin').text("La saisie est incorrecte");
+    } else {
+        $('#alertLogin').text("");
+
+    }
+});
+
+// champ mot de passe 
+$('#ins_mdp').blur(function () {
+    if ($('#ins_mdp').val() == '') {
+        $('#alertMdp').text("Le champs n'est pas rempli");
+    } else if (regMdp.test($('#ins_mdp').val()) == false) {
+        $('#alertMdp').text("La saisie est incorrecte");
+    }     
+    else {
+        $('#alertMdp').text("");
+    }
+});
+
+// champ verif mot de passe 
+$('#mdpVerif').blur(function () {
+    if ($('#ins_mdp').val() != $('#mdpVerif').val()) {
+        $('#alertmdpVerif').text("Vérification du mot de passe incorrecte")
+    } else {
+        $('#alertmdpVerif').text("");
+
+    }
+});
+
 
 });
 

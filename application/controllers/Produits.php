@@ -327,13 +327,9 @@ class Produits extends CI_Controller
           
 
             if ($this->form_validation->run() != false){ //si pas d'erreur dans les champs
-                
                 $data = $this->input->post(NULL,TRUE);
-
                 $mdp = password_hash($this->input->post('ins_mdp'), PASSWORD_DEFAULT);
-
-                $data['ins_mdp'] = $mdp;
-                
+                $data['ins_mdp'] = $mdp;              
                 $this->produits_model->inscription($data,);
             
             }else{
