@@ -11,78 +11,87 @@
                 <fieldset class="fond">
                     <p class="text-uppercase">compte</p>
 
-                    <!-- champ nom -->
-                    <div class='form-group '>
-                        <input class='form-control form-control-md' name="nom" type="text" id="nom" placeholder="nom" value="">
-                        <span id="alertNom">&nbsp</span>
-                    </div>
-
-                    <!-- champ prenom -->
-                    <div class='form-group '>
-                        <input class='form-control form-control-md' name="prenom" type="text" id="prenom" placeholder="prenom" value="">
-                        <span id="alertPrenom">&nbsp</span>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <!-- champ nom -->
+                            <div class='form-group '>
+                                <input class='form-control form-control-md' name="nom" type="text" id="nom" placeholder="nom" value="">
+                                <span id="alertNom">&nbsp</span>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <!-- champ prenom -->
+                            <div class='form-group '>
+                                <input class='form-control form-control-md' name="prenom" type="text" id="prenom" placeholder="prenom" value="">
+                                <span id="alertPrenom">&nbsp</span>
+                            </div>
+                        </div>
                     </div>
                     <!-- champ adresse -->
                     <div class='form-group '>
                         <input class='form-control form-control-md' name="adresse" type="text" id="adresse" placeholder="adresse" value="">
                         <span id="alertAdresse">&nbsp</span>
                     </div>
-
                     <div class="row">
                         <!-- code postal -->
                         <div class="col-md-4">
-                            <input class='form-control form-control-md' name="cp" type="text" id="cp" placeholder="code postal" value="">
-                            <span id="alertCp">&nbsp</span>
+                            <div class='form-group'>
+                                <input class='form-control form-control-md' name="cp" type="text" id="cp" placeholder="code postal" value="">
+                                <span id="alertCp">&nbsp</span>
+                            </div>
                         </div>
-                        <!-- ville-->
+                            <!-- ville-->
                         <div class="col-md-8">
-                            <input class='form-control form-control-md' name="ville" type="text" id="ville" placeholder="ville" value="">
-                            <span id="alertCp">&nbsp</span>
+                            <div class='form-group'>
+                                    <input class='form-control form-control-md' name="ville" type="text" id="ville" placeholder="ville" value="">
+                                    <span id="alertCp">&nbsp</span>
+                            </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <!-- tel portable -->
                         <div class="col-md-6">
-                            <input class='form-control form-control-md' name="portable" type="text" id="portable" placeholder="téléphone portable" value="">
-                            <span id="alertPortable">&nbsp</span>
+                            <div class='form-group'>
+                                <input class='form-control form-control-md' name="portable" type="text" id="portable" placeholder="téléphone portable" value="">
+                                <span id="alertPortable">&nbsp</span>
+                            </div>
                         </div>
                         <!-- tel fixe-->
                         <div class="col-md-6">
-                            <input class='form-control form-control-md' name="fixe" type="text" id="fixe" placeholder="téléphone fixe" value="">
-                            <span id="alertFixe">&nbsp</span>
+                            <div class='form-group'>
+                                <input class='form-control form-control-md' name="fixe" type="text" id="fixe" placeholder="téléphone fixe" value="">
+                                <span id="alertFixe">&nbsp</span>
+                            </div>
                         </div>
                     </div>
-
-
                     <!-- champ email -->
                     <div class='form-group'>
                         <input class='form-control form-control-md' name="email" type="text" id="email" placeholder="adresse mail" value="">
                         <span id="alertEmail">&nbsp</span>
                     </div>
 
-                    <!-- champ mot de passe -->
-                    <div class='form-group'>
-                        <input class='form-control form-control-md' name="mdp" type="password" id="mdp" placeholder="mot de passe" value="">
-                        <span id="alertMdp">&nbsp</span>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- champ mot de passe -->
+                            <div class='form-group'>
+                                 <input class='form-control form-control-md' name="mdp" type="password" id="mdp" placeholder="mot de passe" value="">
+                                 <span id="alertMdp">&nbsp</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- champ vérification mot de passe -->
+                            <div class='form-group'>
+                                <input class='form-control form-control-md' name="mdpVerif" type="password" id="mdpVerif" placeholder="vérification du mot de passe" value="">
+                                <span id="alertmdpVerif">&nbsp</span>
+                            </div>
+                        </div>
                     </div>
-
-                    <!-- champ vérification mot de passe -->
-                    <div class='form-group'>
-                        <input class='form-control form-control-md' name="mdpVerif" type="password" id="mdpVerif" placeholder="vérification du mot de passe" value="">
-                        <span id="alertmdpVerif">&nbsp</span>
-                    </div>
-
                     <div>
                         <button type="submit" class="btn btn-md btn-primary" name="enregistrer" value="enregistrer">enregistrer</button>
                     </div>
-
                     <div>
                         <p>&nbsp *</p>
                     </div>
-
-
-
                 </fieldset>
             </form>
         </div>
