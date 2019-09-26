@@ -331,6 +331,8 @@ class Produits extends CI_Controller
                 $data = $this->input->post(NULL,TRUE);
 
                 $mdp = password_hash($this->input->post('ins_mdp'), PASSWORD_DEFAULT);
+
+            
                 
                 $this->produits_model->inscription($data,$mdp);
             

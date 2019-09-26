@@ -57,8 +57,7 @@ public function modif_update($data,$id,$extention){
         $date = new datetime();
         $modif = $date->format('Y-m-d H:i:s');
         //test et set l'extention si elle existe valeur != ""
-        if(!$extention=='')
-        {
+        if(!$extention==''){
                 $this->db->set('pro_photo', $extention);
         }      
         $this->db->where('pro_id', $id);
