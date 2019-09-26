@@ -332,9 +332,9 @@ class Produits extends CI_Controller
 
                 $mdp = password_hash($this->input->post('ins_mdp'), PASSWORD_DEFAULT);
 
-            
+                $data['ins_mdp'] = $mdp;
                 
-                $this->produits_model->inscription($data,$mdp);
+                $this->produits_model->inscription($data,);
             
             }else{
                 //erreur dans champ form_enr re charge le formulaire

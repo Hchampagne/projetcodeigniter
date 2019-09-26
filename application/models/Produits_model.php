@@ -86,7 +86,7 @@ public function mdp($email){
 }
 
 //INSCRIPTION
- public function inscription($data,$mdp){
+ public function inscription($data){
         //ajout inscription
         $this->load->database();
         // date ajout généré par le système
@@ -94,7 +94,7 @@ public function mdp($email){
         $date = new datetime();
         $ajout = $date->format('Y-m-d');
 
-        $this->db->set('ins_mdp',$mdp);
+        
         $this->db->set('ins_d_ins', $ajout);
         $this->db->insert('inscription',$data);
                 
