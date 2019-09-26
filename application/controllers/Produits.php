@@ -303,13 +303,13 @@ class Produits extends CI_Controller
             $this->form_validation->set_rules('ins_prenom', 'prenom', 'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]', 
                 array('required' => 'champs vide','regex_match'=>'Saisie incorrecte'));
                 
-            $this->form_validation->set_rules('ins_adresse', 'adresse', 'required|html_escape|regex_match[/([1-9]|([1-9][0-9])|([1-9][0-9][0-9]))*\s[A-Za-zéèçàäëï]+(\s[A-Za-zéèçàäëï]+)*(\s[A-Za-zéèçàäëï]+)*/]',
+            $this->form_validation->set_rules('ins_adresse', 'adresse', 'required|html_escape',
                  array('required' => 'Champs vide','regex_match'=>'Saisie incorrecte'));
                 
-            $this->form_validation->set_rules('ins_cp', 'code postal', 'required|html_escape|regex_match[/(([0][1-9])|([1-9][0-9]))[0-9]{3}/]', 
+            $this->form_validation->set_rules('ins_cp', 'code postal', 'required|html_escape', 
             array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte'));
                
-            $this->form_validation->set_rules('ins_ville', 'ville', 'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Za-zéèçàäëï]+)*([\s-][A-Za-zéèçàäëï]+)*([\s-A-Za-zéèçàäëï]+)*/]', 
+            $this->form_validation->set_rules('ins_ville', 'ville', 'required|html_escape', 
                 array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte'));
                
             $this->form_validation->set_rules('ins_portable', 'Tel mobile', 'required|html_escape|regex_match[/(\+\d+(\s|-))?0\d(\s|-)?(\d{2}(\s|-)?){4}/]', 
