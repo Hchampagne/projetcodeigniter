@@ -101,5 +101,10 @@ public function mdp($email){
         return;
 }
 
-
+//DOUBLONS
+public function doublons(){
+   $this->load->database(); 
+   
+   
+}
 }

@@ -90,15 +90,19 @@ $(document).ready(function () {                       // initialise JQUERY au ch
           }
       });
 
-//mdp inscription 
+//CONNEXION / ENREGITREMENT
 
+//REGEX
 var regNom = /^[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*$/;
 var regPrenom = /^[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*$/;
+var regAdresse = /^([1-9]|([1-9][0-9])|([1-9][0-9][0-9]))*\s[A-Za-zéèçàäëï]+(\s[A-Za-zéèçàäëï]+)*(\s[A-Za-zéèçàäëï]+)*$/;
+var regCp = /^(([0][1-9])|([1-9][0-9]))[0-9]{3}$/;
+var regVille = /^[A-Z][a-zéèçàäëï]+([\s-][A-Za-zéèçàäëï]+)*([\s-][A-Za-zéèçàäëï]+)*([\s-A-Za-zéèçàäëï]+)*$/;
+var regTel = /^(\+\d+(\s|-))?0\d(\s|-)?(\d{2}(\s|-)?){4}$/;
 var regMail = /^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/;
 var regMdp = /^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/;
 
-
-//formulaire connexion 
+//FORMULAIRE CONNEXION
 // champ email  
 $('#email').blur(function () {
     if ($('#email').val() == '') {
@@ -122,8 +126,7 @@ $('#mdp').blur(function () {
 });
 
 
-
-//formulaire inscription
+//FORMULAIRE ENREGISTREMENT
 //champ nom                                                                                                                         
 $('#ins_nom').blur(function () {
     if ($('#ins_nom').val() == '') {
@@ -150,8 +153,8 @@ $('#ins_prenom').blur(function () {
 $('#ins_adresse').blur(function () {
     if ($('#ins_adresse').val() == '') {
         $('#alertAdresse').text("Le champs est vide");
-    } else if (regPrenom.test($('#ins_adresse').val()) == false) {
-        $('#alertAresse').text("La sasie est incorrecte");
+    } else if (regAdresse.test($('#ins_adresse').val()) == false) {
+        $('#alertAdresse').text("La sasie est incorrecte");
     } else {
         $('#alertAdresse').text("");
     }
@@ -161,7 +164,7 @@ $('#ins_adresse').blur(function () {
 $('#ins_cp').blur(function () {
     if ($('#ins_cp').val() == '') {
         $('#alertCp').text("Le champs est vide");
-    } else if (regPrenom.test($('#ins_cp').val()) == false) {
+    } else if (regCp.test($('#ins_cp').val()) == false) {
         $('#alertCp').text("La sasie est incorrecte");
     } else {
         $('#alertCp').text("");
@@ -172,7 +175,7 @@ $('#ins_cp').blur(function () {
 $('#ins_ville').blur(function () {
     if ($('#ins_ville').val() == '') {
         $('#alertVille').text("Le champs est vide");
-    } else if (regPrenom.test($('#ins_ville').val()) == false) {
+    } else if (regVille.test($('#ins_ville').val()) == false) {
         $('#alertVille').text("La sasie est incorrecte");
     } else {
         $('#alertVille').text("");
@@ -182,13 +185,33 @@ $('#ins_ville').blur(function () {
 //champ tel mobile
 $('#ins_portable').blur(function () {
     if ($('#ins_portable').val() == '') {
-        $('#alertPortable').text("Le champs est vide");
+        $('#alertTel').text("Le champs est vide");
     } else if (regTel.test($('#ins_portable').val()) == false) {
         $('#alertPortable').text("La sasie est incorrecte");
     } else {
         $('#alertPortable').text("");
     }
 });
+
+//controle doublons  (ajax_verifRef.php)
+$('#ins_portable').change(function () {
+    $.post({
+        url: "../controleur/ajax_verifRef.php",
+        data: {
+            verifRef: $("#ins_portable").val()
+        },
+        success: function (data) {
+            if (data == 1) {
+                $("#alertPortable").text("dèjà utilisée");
+            } else {
+                $("#alertPortable").html("&nbsp");
+            }
+        }
+    });
+});
+
+
+
 
 //champ tel fixe
 $('#ins_Fixe').blur(function () {

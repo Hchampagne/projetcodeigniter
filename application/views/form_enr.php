@@ -15,35 +15,35 @@
                         <div class="col-md-7">
                             <!-- champ nom -->
                             <div class='form-group '>
-                                <input class='form-control form-control-md' name="ins_nom" type="text" id="ins_nom" placeholder="nom" value="">
+                                <input class='form-control form-control-md' name="ins_nom" type="text" id="ins_nom" placeholder="nom" value="<?= set_value('ins_nom') ?>">
                                 <span id="alertNom" class="alert">&nbsp<?= form_error('ins_nom', '<span>', '</span>') ?></span>
                             </div>
                         </div>
                         <div class="col-md-5">
                             <!-- champ prenom -->
                             <div class='form-group '>
-                                <input class='form-control form-control-md' name="ins_prenom" type="text" id="ins_prenom" placeholder="prenom" value="">
+                                <input class='form-control form-control-md' name="ins_prenom" type="text" id="ins_prenom" placeholder="prenom" value="<?= set_value('ins_prenom') ?>">
                                 <span id="alertPrenom" class="alert">&nbsp<?= form_error('ins_prenom', '<span>', '</span>') ?></span>
                             </div>
                         </div>
                     </div>
                     <!-- champ adresse -->
                     <div class='form-group '>
-                        <input class='form-control form-control-md' name="ins_adresse" type="text" id="ins_adresse" placeholder="adresse" value="">
+                        <input class='form-control form-control-md' name="ins_adresse" type="text" id="ins_adresse" placeholder="adresse" value="<?= set_value('ins_adresse') ?>">
                         <span id="alertAdresse" class="alert">&nbsp<?= form_error('ins_adresse', '<span>', '</span>') ?></span>
                     </div>
                     <div class="row">
                         <!-- code postal -->
                         <div class="col-md-5">
                             <div class='form-group'>
-                                <input class='form-control form-control-md' name="ins_cp" type="text" id="ins_cp" placeholder="code postal" value="">
+                                <input class='form-control form-control-md' name="ins_cp" type="text" id="ins_cp" placeholder="code postal" value="<?= set_value('ins_cp') ?>">
                                 <span id="alertCp" class="alert">&nbsp<?= form_error('ins_cp', '<span>', '</span>') ?></span>
                             </div>
                         </div>
                         <!-- ville-->
                         <div class="col-md-7">
                             <div class='form-group'>
-                                <input class='form-control form-control-md' name="ins_ville" type="text" id="ins_ville" placeholder="ville" value="">
+                                <input class='form-control form-control-md' name="ins_ville" type="text" id="ins_ville" placeholder="ville" value="<?= set_value('ins_ville') ?>">
                                 <span id="alertVille" class="alert">&nbsp<?= form_error('ins_ville', '<span>', '</span>') ?></span>
                             </div>
                         </div>
@@ -52,21 +52,21 @@
                         <!-- tel portable -->
                         <div class="col-md-6">
                             <div class='form-group'>
-                                <input class='form-control form-control-md' name="ins_portable" type="text" id="ins_portable" placeholder="téléphone portable" value="">
+                                <input class='form-control form-control-md' name="ins_portable" type="text" id="ins_portable" placeholder="téléphone portable" value="<?= set_value('ins_portable') ?>">
                                 <span id="alertPortable" class="alert">&nbsp<?= form_error('ins_portable', '<span>', '</span>') ?></span>
                             </div>
                         </div>
                         <!-- tel fixe-->
                         <div class="col-md-6">
                             <div class='form-group'>
-                                <input class='form-control form-control-md' name="ins_fixe" type="text" id="ins_fixe" placeholder="téléphone fixe" value="">
+                                <input class='form-control form-control-md' name="ins_fixe" type="text" id="ins_fixe" placeholder="téléphone fixe" value="<?= set_value('ins_fixe') ?>">
                                 <span id="alertFixe" class="alert">&nbsp<?= form_error('ins_fixe', '<span>', '</span>') ?></span>
                             </div>
                         </div>
                     </div>
                     <!-- champ email -->
                     <div class='form-group'>
-                        <input class='form-control form-control-md' name="ins_login" type="text" id="ins_login" placeholder="adresse mail" value="">
+                        <input class='form-control form-control-md' name="ins_login" type="text" id="ins_login" placeholder="adresse mail" value="ins_login">
                         <span id="alertLogin" class="alert">&nbsp<?= form_error('ins_login', '<span>', '</span>') ?></span>
                     </div>
 
@@ -74,7 +74,7 @@
                         <div class="col-md-6">
                             <!-- champ mot de passe -->
                             <div class='form-group'>
-                                <input class='form-control form-control-md' name="ins_mdp" type="password" id="ins_mdp" placeholder="mot de passe" value="">
+                                <input class='form-control form-control-md' name="ins_mdp" type="password" id="ins_mdp" placeholder="mot de passe" value="ins_mdp">
                                 <span id="alertMdp" class="alert">&nbsp<?= form_error('ins_mdp', '<span>', '</span>') ?></span>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                             <!-- champ vérification mot de passe -->
                             <div class='form-group'>
                                 <input class='form-control form-control-md' name="" type="password" id="mdpVerif" placeholder="vérification du mot de passe" value="">
-                                <span id="alertmdpVerif" class="alert" >&nbsp</span>
+                                <span id="alertmdpVerif" class="alert">&nbsp</span>
                             </div>
                         </div>
                     </div>
