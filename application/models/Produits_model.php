@@ -103,12 +103,4 @@ public function mdp($email){
         $ident['ident'] = $this->db->get('inscription')->row();
         return $ident;
 }
-
-//DOUBLONS
-public function doublons($verif){
-   $this->load->database(); 
-   $verif = $this->input('verif');
-   
-   
-}
 }

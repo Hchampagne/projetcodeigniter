@@ -10,6 +10,7 @@
 
 <body>
 	<nav class="navbar container-fluid sticky-top navbar-expand-lg navbar-dark bg-dark">
+
 		<a class="navbar-brand" href="#">
 			<img alt="logo jarditou" title="logo jarditou" src="<?= base_url("/assets/images/img_site/") . "88.png" ?>" width="" height="100" alt="">
 		</a>
@@ -32,20 +33,20 @@
 				<li class="nav-item active">
 					<a <?= isset($hide) ? '' : 'hidden'; ?> class="nav-link active" href="<?= site_url("/produits/deconnexion/") ?>">Déconnexion</a>
 				</li>
-				<li class="nav-item active">
-					<p class="white"><?= isset($mess1) ? $mess1 : "" ?></p>
-				</li>
-			</ul>
-		</div>
 
+			</ul>
+
+		</div>
 		<div>
-			<span class="panier"><?= isset($mess) ? $mess : "" ?></span>
-			<div>
+			<span class="panier">&nbsp<?= isset($mess) ? $mess : "" ?></span>
+			<div class="position -right">
 				<a class="navbar-brand" href="<?= site_url("/produits/affiche/") ?>">
-					<img class="postition-fixed" alt="" title="" src="<?= base_url("/assets/images/img_site/") . "panier.png" ?>" width="" height="50" alt="">
+					<img class="" alt="" title="" src="<?= base_url("/assets/images/img_site/") . "panier.png" ?>" width="" height="50" alt="">
 				</a>
 				<span class="panier">&nbsp<?= isset($compteur) ? $compteur . " article(s)" : "0 article(s)" ?></span>
 			</div>
+			<p class="white">&nbsp <?= isset($mess1) ? $mess1 : "" ?></p>
 		</div>
-		</div>
+
+		
 	</nav>

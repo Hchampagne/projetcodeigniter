@@ -193,21 +193,6 @@ $('#ins_portable').blur(function () {
     }
 }); 
 
-//controle doublons tel mobile (ajax_verifRef.php)
-$('#ins_portable').change(function () {
-    $.post({
-        url: "<?= site_url ('produits/doublons') ?>",
-        data: {verif: $("#ins_portable").val()},
-        success: function (data) {
-            if (data == 1) {
-                $("#alertPortable").text("dèjà utilisée");
-            } else {
-                $("#alertPortable").html("&nbsp");
-            }
-        }
-    });
-});
-
 
 //champ tel fixe
 $('#ins_Fixe').blur(function () {
