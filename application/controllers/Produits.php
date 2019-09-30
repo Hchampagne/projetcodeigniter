@@ -7,6 +7,7 @@
 
 // application/controllers/Produits.php	
 defined('BASEPATH') or exit('No direct script access allowed');
+
 class Produits extends CI_Controller
 {
 //LISTE ADMINISTRATEUR CRUD
@@ -441,10 +442,10 @@ class Produits extends CI_Controller
             $nb = 1;                            // premier passage compteur à 1
             $this->session->compteur = $nb  ;   // stock valeur compteur ds variable session compteur à un premier passage
             //prepare pour compteur dans header_user
-            $compteur['compteur'] = $this->session->compteur;
+            
+            redirect('produits/liste_user/');  
 
-            $this->load->view('header_user',$compteur);
-            $this->load->view('liste_user', $aView);
+            
         } else //si le panier existe
         {
             $tab = $this->session->panier;      
@@ -469,7 +470,7 @@ class Produits extends CI_Controller
                 $nb = $this->session->compteur;
                 $nb = count($tab);
                 $this->session->compteur = $nb;
-                $compteur['compteur'] = $this->session->compteur;        //prpare pour compteur dans header_user
+                  //prpare pour compteur dans header_user
 
                 $this->session->panier = $tab;
 
@@ -550,6 +551,8 @@ class Produits extends CI_Controller
 
         $nom = $this->session->nom;
         $prenom = $this->session->prenom;
+        
+        $mess['mess'] = $this->session->message = '';
 
         if (!empty($nom)) {
             $mess1['mess1'] = 'connexion : ' . $nom . ' ' . $prenom;
@@ -558,7 +561,7 @@ class Produits extends CI_Controller
             $mess1['mess1'] = '';
             $hide['hide'] = null;
         }
-        $this->load->view('header_user',$compteur+$mess1+$hide);
+        $this->load->view('header_user',$compteur+$mess1+$hide+$mess);
         $this->load->view('panier');
     }
 
