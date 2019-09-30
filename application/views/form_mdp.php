@@ -7,7 +7,8 @@
         </div>
         <!-- formulaire connection -->
         <div class="col-md-6">
-            <form role="form" method="post" action="">
+            <!--<form role="form" method="post" action="">-->
+                <?= form_open('produits/form_mdp/','name="formulaire" id="formulaire" enctype="multipart/form-data"'); ?>
                 <fieldset class="fond">
                     <p class=" pull-center"></p>
                     <!-- login -->

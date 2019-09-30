@@ -22,35 +22,30 @@
 				<li class="nav-item active">
 					<a class="nav-link" href="<?= site_url("/produits/liste_user/") ?>">Boutique</a>
 				</li>
-				<li class=" nav-item active">
-					<a class="nav-link" href="#"></a>
-				</li>
 				</li>
 				<li class=" nav-item active">
-					<a class="nav-link" href="<?= site_url("/produits/form_mdp/") ?>">Connexion</a>
-				</li>
-				<li class="nav-item active">
-				<li class="nav-item active">
-					<a class="nav-link disabled" href="#"></a>
+					<a <?= isset($hide) ? $hide : ''; ?> class="nav-link active" href="<?= site_url("/produits/form_mdp/") ?>">Connexion</a>
 				</li>
 				<li>
-					<a class="nav-link active " href="<?= site_url("/produits/form_enr/") ?>">S'enregistrer</a>
+					<a <?= isset($hide) ? $hide : ''; ?> class="nav-link active " href="<?= site_url("/produits/form_enr/") ?>">S'enregistrer</a>
 				</li>
 				<li class="nav-item active">
-				<a class="nav-link disabled" href="#"></a>
+					<a <?= isset($hide) ? '' : 'hidden'; ?> class="nav-link active" href="<?= site_url("/produits/deconnexion/") ?>">Déconnexion</a>
 				</li>
 				<li class="nav-item active">
-				<a class="nav-link active panier" href="#"><?= isset($mess) ? $mess : "" ?></a>
+					<p class="white"><?= isset($mess1) ? $mess1 : "" ?></p>
 				</li>
 			</ul>
+		</div>
 
-
-
-			<a class="navbar-brand" href="<?= site_url("/produits/affiche/") ?>">
-				<div>
+		<div>
+			<span class="panier"><?= isset($mess) ? $mess : "" ?></span>
+			<div>
+				<a class="navbar-brand" href="<?= site_url("/produits/affiche/") ?>">
 					<img class="postition-fixed" alt="" title="" src="<?= base_url("/assets/images/img_site/") . "panier.png" ?>" width="" height="50" alt="">
-					<span class="panier">&nbsp<?= isset($compteur) ? $compteur . " article(s)" : "0 article" ?></span>
-				</div>
-			</a>
+				</a>
+				<span class="panier">&nbsp<?= isset($compteur) ? $compteur . " article(s)" : "0 article(s)" ?></span>
+			</div>
+		</div>
 		</div>
 	</nav>

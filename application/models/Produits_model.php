@@ -85,7 +85,7 @@ public function mdp($email){
         return $ident;
 }
 
-//INSCRIPTION
+//INSCRIPTION mdp/session
  public function inscription($data){
         //ajout inscription
         $this->load->database();
@@ -93,17 +93,21 @@ public function mdp($email){
         date_default_timezone_set('Europe/Paris');
         $date = new datetime();
         $ajout = $date->format('Y-m-d');
-
-        
+     
+        //insert en base
         $this->db->set('ins_d_ins', $ajout);
         $this->db->insert('inscription',$data);
-                
-        return;
+        $id = $this->db->insert_id(); 
+     
+        $this->db->where('ins_id', $id);
+        $ident['ident'] = $this->db->get('inscription')->row();
+        return $ident;
 }
 
 //DOUBLONS
-public function doublons(){
+public function doublons($verif){
    $this->load->database(); 
+   $verif = $this->input('verif');
    
    
 }

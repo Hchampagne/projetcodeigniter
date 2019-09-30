@@ -8,6 +8,11 @@
     color: rgba(255, 0, 200, 0.637);
 }
 
+.white{
+    font-style: italic;
+    color: white;
+}
+
 
 .tab {
     height : 80px;

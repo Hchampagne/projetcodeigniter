@@ -24,11 +24,23 @@ class Produits extends CI_Controller
         //appel model
         $this->load->model('produits_model');
         $aListe = $this->produits_model->liste();
-
         $aView["liste_produits"] = $aListe;
+
+        $nom = $this->session->nom;
+        $prenom = $this->session->prenom;
+
+        if(!empty($nom)){
+            $mess1['mess1'] = 'connexion : ' . $nom .' '. $prenom;
+            $hide['hide'] = 'hidden';
+        }else{
+            $mess1['mess1'] = '';
+            $hide['hide'] = null;
+        }
+
         // Appel de la vue avec transmission du tableau 
         $compteur['compteur'] = $this->session->compteur;  
-        $this->load->view('header_user',$compteur);
+
+        $this->load->view('header_user',$compteur+$mess1+$hide);
         $this->load->view('liste_user', $aView);
     }
 
@@ -254,14 +266,15 @@ class Produits extends CI_Controller
                         $this->session->set_userdata('nom', $ident['ident']->ins_nom);
                         $this->session->set_userdata('prenom', $ident['ident']->ins_prenom);
                         $this->session->set_userdata('email', $ident['ident']->ins_login);
-                                                      
-                        if($ident['ident']->ins_role  == 'admin') {  //load header et liste admin                      
+                                              
+                        if($ident['ident']->ins_role  == 'admin') {  //load header et liste admin 
+                          
                             redirect("produits/liste"); // redirection liste  
 
-                        }else{ //load header et liste user                                         
-                           redirect('produits/liste_user');
-                        }
-                    
+                        }else{ //load header et liste user 
+                            
+                            redirect('produits/liste_user');
+                        }                   
                     }else{ // erreur mot de passe
                         $mess['mess'] = 'problème connexion mdp';
                         $compteur['compteur'] = $this->session->compteur;                       
@@ -336,8 +349,29 @@ class Produits extends CI_Controller
             if ($this->form_validation->run() != false){ //si pas d'erreur dans les champs
                 $data = $this->input->post(NULL,TRUE);
                 $mdp = password_hash($this->input->post('ins_mdp'), PASSWORD_DEFAULT);
-                $data['ins_mdp'] = $mdp;              
-                $this->produits_model->inscription($data,);
+                $data['ins_mdp'] = $mdp;
+                //$data['ins_login'] = 'user';             
+                $ident = $this->produits_model->inscription($data);
+
+                if( $ident == false){
+                   $mess = "Erreur lors de l'enregistrement ! ";
+                    $compteur['compteur'] = $this->session->compteur;
+                    $this->load->view('header_user', $compteur);
+                    $this->load->view('form_enr',$mess);
+                }else{
+                    $this->session->set_userdata('role', $ident['ident']->ins_role);
+                    $this->session->set_userdata('nom', $ident['ident']->ins_nom);
+                    $this->session->set_userdata('prenom', $ident['ident']->ins_prenom);
+                    $this->session->set_userdata('email', $ident['ident']->ins_login);
+
+                    echo $this->session->nom;
+
+                    if($ident['ident']->ins_role  == 'admin') {  //load header et liste admin                          
+                            redirect("produits/liste"); // redirection liste  
+                        }else{ //load header et liste user                            
+                            redirect('produits/liste_user');
+                        }   
+                }
             
             }else{
                 //erreur dans champ form_enr re charge le formulaire
@@ -367,8 +401,7 @@ class Produits extends CI_Controller
         if (ini_get("session.use_cookies")) {
             setcookie(session_name(), '', time() - 42000);
         }  
-
-        //$this->session->sess_destroy();
+        $this->session->sess_destroy();
         redirect('produits/liste_user');
     }
 
@@ -519,6 +552,7 @@ class Produits extends CI_Controller
 //DOUBLONS
     public function doublons(){
         if($this->input->is_ajax_request()){
+            $verif = $this->input('verif');
             
         }
     }

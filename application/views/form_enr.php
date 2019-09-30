@@ -7,7 +7,8 @@
         </div>
         <!-- formulaire connection -->
         <div class="col-md-8">
-            <form role="form" method="post" action="">
+            <!-- <form role="form" method="post" action=""> -->
+            <?= form_open('produits/form_enr/','name="formulaire" id="formulaire" enctype="multipart/form-data"'); ?>
                 <fieldset class="fond">
                     <p class="text-uppercase">compte</p>
 
@@ -66,7 +67,7 @@
                     </div>
                     <!-- champ email -->
                     <div class='form-group'>
-                        <input class='form-control form-control-md' name="ins_login" type="text" id="ins_login" placeholder="adresse mail" value="ins_login">
+                        <input class='form-control form-control-md' name="ins_login" type="text" id="ins_login" placeholder="adresse mail" value="<?= set_value('ins_login') ?><?= set_value('ins_fixe') ?><?= set_value('ins_fixe') ?>">
                         <span id="alertLogin" class="alert">&nbsp<?= form_error('ins_login', '<span>', '</span>') ?></span>
                     </div>
 
@@ -74,14 +75,14 @@
                         <div class="col-md-6">
                             <!-- champ mot de passe -->
                             <div class='form-group'>
-                                <input class='form-control form-control-md' name="ins_mdp" type="password" id="ins_mdp" placeholder="mot de passe" value="ins_mdp">
+                                <input class='form-control form-control-md' name="ins_mdp" type="password" id="ins_mdp" placeholder="mot de passe" value="<?= set_value('ins_mdp') ?><?= set_value('ins_fixe') ?>">
                                 <span id="alertMdp" class="alert">&nbsp<?= form_error('ins_mdp', '<span>', '</span>') ?></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <!-- champ vérification mot de passe -->
                             <div class='form-group'>
-                                <input class='form-control form-control-md' name="" type="password" id="mdpVerif" placeholder="vérification du mot de passe" value="">
+                                <input class='form-control form-control-md' name="" type="password" id="mdpVerif" placeholder="vérification du mot de passe" value="<?= set_value('ins_mdpVerif') ?>">
                                 <span id="alertmdpVerif" class="alert">&nbsp</span>
                             </div>
                         </div>
@@ -90,7 +91,7 @@
                         <button type="submit" class="btn btn-md btn-primary" name="" value="">enregistrer</button>
                     </div>
                     <div>
-                        <p class="alert">&nbsp </p>
+                        <p class="alert">&nbsp <?= isset($mess) ? $mess : "" ; ?></p>
                     </div>
                 </fieldset>
             </form>

@@ -107,7 +107,7 @@ var regMdp = /^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/;
 $('#email').blur(function () {
     if ($('#email').val() == '') {
         $('#alertEmail').text("Le champs n'est pas rempli");
-    } else if (regMail.test($('#email1').val()) == false) {
+    } else if (regMail.test($('#email').val()) == false) {
         $('#alertEmail').text("La saisie est incorrecte");
     } else {
         $('#alertEmail').html('&nbsp');
@@ -191,15 +191,13 @@ $('#ins_portable').blur(function () {
     } else {
         $('#alertPortable').text("");
     }
-});
+}); 
 
-//controle doublons  (ajax_verifRef.php)
+//controle doublons tel mobile (ajax_verifRef.php)
 $('#ins_portable').change(function () {
     $.post({
-        url: "../controleur/ajax_verifRef.php",
-        data: {
-            verifRef: $("#ins_portable").val()
-        },
+        url: "<?= site_url ('produits/doublons') ?>",
+        data: {verif: $("#ins_portable").val()},
         success: function (data) {
             if (data == 1) {
                 $("#alertPortable").text("dèjà utilisée");
@@ -209,8 +207,6 @@ $('#ins_portable').change(function () {
         }
     });
 });
-
-
 
 
 //champ tel fixe
@@ -255,8 +251,6 @@ $('#mdpVerif').blur(function () {
 
     }
 });
-
-
 });
 
 
