@@ -1,6 +1,10 @@
 	
 <?php
 
+//test
+//  $this->output->enable_profiler(TRUE); 
+//test
+
 // application/controllers/Produits.php	
 defined('BASEPATH') or exit('No direct script access allowed');
 class Produits extends CI_Controller
@@ -28,6 +32,8 @@ class Produits extends CI_Controller
 
         $nom = $this->session->nom;
         $prenom = $this->session->prenom;
+        $mess['mess'] = $this->session->message;
+
 
         if(!empty($nom)){
             $mess1['mess1'] = 'connexion : ' . $nom .' '. $prenom;
@@ -40,7 +46,7 @@ class Produits extends CI_Controller
         // Appel de la vue avec transmission du tableau 
         $compteur['compteur'] = $this->session->compteur;  
 
-        $this->load->view('header_user',$compteur+$mess1+$hide);
+        $this->load->view('header_user',$compteur+$mess1+$hide+$mess);
         $this->load->view('liste_user', $aView);
     }
 
@@ -374,7 +380,7 @@ class Produits extends CI_Controller
                 }
             
             }else{
-                //erreur dans champ form_enr re charge le formulaire
+                //erreur dans champ form_enr re-charge le formulaire
                 $compteur['compteur'] = $this->session->compteur;
                 $this->load->view('header_user', $compteur);
                 $this->load->view('form_enr');
@@ -392,7 +398,10 @@ class Produits extends CI_Controller
 
 //DECONNEXION
     public function deconnexion(){
-      //  $this->output->enable_profiler(TRUE);
+        //test
+        //  $this->output->enable_profiler(TRUE); 
+        //test
+
         $this->session->unset_userdata('role');
         $this->session->unset_userdata('nom');
         $this->session->unset_userdata('prenom');
@@ -450,12 +459,10 @@ class Produits extends CI_Controller
             if ($sortie) //si le produit existe déjà, l'utilisateur est averti
             {
                 $mess= "*Ce produit est déjà dans le panier*";
-                $message['mess'] = $mess;
+                $this->session->message = $mess;
 
-                $compteur['compteur'] = $this->session->compteur; 
-
-                $this->load->view('header_user',$compteur+$message);
-                $this->load->view('liste_user', $aView);
+                redirect('produits/liste_user/');
+               
             } else { //sinon le produit est ajouté dans le panier
                 array_push($tab, $data);
                 //incremente le compteur
@@ -465,8 +472,11 @@ class Produits extends CI_Controller
                 $compteur['compteur'] = $this->session->compteur;        //prpare pour compteur dans header_user
 
                 $this->session->panier = $tab;
-                $this->load->view('header_user',$compteur);
-                $this->load->view('liste_user', $aView);
+
+                $mess = "";
+                $this->session->message = $mess;
+
+                redirect('produits/liste_user/');               
             }
         }
     }
@@ -536,8 +546,19 @@ class Produits extends CI_Controller
 
 //AFFICHE PANIER
     public function affiche(){       
-        $compteur['compteur'] = $this->session->compteur;  
-        $this->load->view('header_user',$compteur);
+        $compteur['compteur'] = $this->session->compteur;
+
+        $nom = $this->session->nom;
+        $prenom = $this->session->prenom;
+
+        if (!empty($nom)) {
+            $mess1['mess1'] = 'connexion : ' . $nom . ' ' . $prenom;
+            $hide['hide'] = 'hidden';
+        } else {
+            $mess1['mess1'] = '';
+            $hide['hide'] = null;
+        }
+        $this->load->view('header_user',$compteur+$mess1+$hide);
         $this->load->view('panier');
     }
 
@@ -548,13 +569,4 @@ class Produits extends CI_Controller
         $this->affiche();
 
     }
-
-//DOUBLONS
-    public function doublons(){
-        if($this->input->is_ajax_request()){
-            $verif = $this->input('verif');
-            
-        }
-    }
-
 } 
