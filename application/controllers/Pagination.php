@@ -18,12 +18,12 @@ class Pagination extends CI_Controller
         $config["total_rows"] = $this->pagination_model->get_counter();
         $config["per_page"] = 7;
         $config["uri_segment"] = 2;
-
+       
+        
 
         //$config['full_tag_open'] = '<ul class="pagination">';
         //$config['full_tag_close'] = '</ul>';
 
-        $config['use_page_numbers'] = TRUE;
 
         $config['first_link'] = false;
         //$config['first_tag_open'] = '';
@@ -33,28 +33,34 @@ class Pagination extends CI_Controller
         //$config['last_tag_open'] = '';
         //$config['last_tag_close'] = '';
 
+        $config['attributes'] = array('class'=>'btn btn-outline-primary','role'=>'button');
 
-        $config['next_link'] = 'Suivant';
+        $config['next_link'] = false;
         //$config['next_tag_open'] = '';
         //$config['next_tag_close'] = '';
 
-        $config['prev_link'] = 'Précédent';
+        $config['prev_link'] = false;
         //config['prev_tag_open'] = '<li class="prev page">';
         //$config['prev_tag_close'] = '</li>';
 
-        //$config['cur_tag_open'] = '<span href="">';
-        //$config['cur_tag_close'] = '</span>';
+     
+        $config['cur_tag_open'] = '<a href="" class="btn btn-outline-primary" role="bouton">';
+        $config['cur_tag_close'] = '</a>';
+
+        $config['num_links'] = 10;
 
         //$config['num_tag_open'] = '<li class="page">';
         //$config['num_tag_close'] = '</li>';
 
-        $config['display_pages'] = FALSE;
+       
 
         $this->pagination->initialize($config);
         $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
         $data["links"] = $this->pagination->create_links();
         $data['pagination'] = $this->pagination_model->get_prod($config["per_page"], $page);
 
+        var_dump($data['links']);
+        var_dump( $this->pagination_model->get_counter());
         $this->load->view('paginations/index', $data);
     }
 }
