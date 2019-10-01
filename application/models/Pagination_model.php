@@ -7,10 +7,12 @@ class Pagination_model extends CI_Model
     {
         parent::__construct();
     }
+
     public function get_counter()
     {
         return $this->db->count_all($this->table);
     }
+    
     public function get_prod($limit, $start)
     {
         $this->db->limit($limit, $start);
