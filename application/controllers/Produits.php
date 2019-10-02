@@ -13,6 +13,12 @@ class Produits extends CI_Controller
 //LISTE ADMINISTRATEUR CRUD
     public function liste()
     {
+
+        //redirection user si pas admin
+        if ($this->session->role != 'admin') {
+            redirect('produits/liste_user');
+        }
+
         //appel model
         $this->load->model('produits_model');
         $aListe = $this->produits_model->liste();
@@ -74,15 +80,12 @@ class Produits extends CI_Controller
 //AJOUT CRUD
     public function ajout()
     {
-        // controle session acces admin
-        
+        // controle session acces admin       
         if ($this->session->role != 'admin') {
             redirect('produits/liste_user');           
         }
         
-        $this->load->database();
-
-        if ($this->input->post()) {
+        if ($this->input->post()) { //si post
 
             // validation des champs formulaires requis/regex/longueur et unique pour référence set message erreurs
             $this->form_validation->set_rules('pro_ref', 'Référence', 'required|html_escape|regex_match[/^[\ \/_ \-A-Za-z0-9êéèçàäëï]*$/]|max_length[10]|is_unique[produits.pro_ref]', 
@@ -99,23 +102,24 @@ class Produits extends CI_Controller
                 array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
 
             //test photo valide
-            $config['upload_path'] ="./assets/images/";
+            $config['upload_path'] ="./assets/images/"; 
             $config['allowed_types'] = 'gif|jpg|jpeg|pjpeg|png|x-png|tiff'; //types fichiers autorisés
             $this->upload->initialize($config);
-            if(! $this->upload->do_upload('fichier')){
-                $errors = $this->upload->display_errors('<span class="span">', '</span>');
-                $aview['errors'] = $errors;  
+            if(! $this->upload->do_upload('fichier')){ //si upload fichier
+                $errors = $this->upload->display_errors('<span class="span">', '</span>'); // initialsie essage erreur CI
+                $aview['errors'] = $errors;     //prepare message erreur pour transmittion
             }
             else{
-                $aview = array();
+                $aview = array();               // vide message erreur
             }
                     
-            if (($this->form_validation->run() == false) || (count($aview)!=0)){               
+            if (($this->form_validation->run() == false) || (count($aview)!=0)){ // erreur dans champs et fichier non valide         
                 //il au moins une erreur / recharge la vue formulaire ajout
 
-                $cat=$this->produits_model->categories();  
-                $this->load->view('header.php');
-                $this->load->view('ajout', $cat+$aview);
+                $cat=$this->produits_model->categories();  // recup select categorie
+
+                $this->load->view('header.php');                //recharge header
+                $this->load->view('ajout', $cat+$aview);        //recharge modif avec categorie et message erreur pour affichage
             } 
             else {
                 //si pas d'erreurs dans les champs ou la photo
