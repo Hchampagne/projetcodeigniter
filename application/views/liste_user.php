@@ -2,8 +2,8 @@
 
     <div class="row text-center">
         <div class="col table-responsive">
-            <table class="table  table-striped">
-                <p><?= $links ?></p>
+            <table class="table ">
+                
                 <thead class="thead-light">
                     <tr>
 
@@ -19,37 +19,38 @@
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($pagination as $row) {                     
-                            ?>
-                            <tr>
-                                <td style="width: 80px; height: 80px;">
-                                    <?= form_open('produits/ajoutePanier/', 'name="formulaire" id="formulaire"'); ?>
-                                    <input class="form-control" name="pro_qte" id="pro_qte" value="1">
-                                    <input type="hidden" name="pro_prix" value="<?= $row->pro_prix ?>">
-                                    <input type="hidden" name="pro_id" value="<?= $row->pro_id ?>">
-                                    <input type="hidden" name="pro_libelle" value="<?= $row->pro_libelle ?>">
-                                    <div class="form-group">
-                                        <input class="btn btn-default btn-sm" type="submit" value="Ajouter">
-                                    </div>
-                                    </form>
-                                </td>
-                                <td class="align-middle">
-                                    <img class="img-responsive" style="width: 80px; height: 80px;" src="<?= base_url("assets/images/") . $row->pro_id . '.' . $row->pro_photo ?>" alt="" title="<?= $row->pro_libelle ?>">
-                                </td>
-                                <td class="align-middle"><?= $row->pro_ref ?></td>
-                                <td class="align-middle"><?= $row->pro_libelle ?></td>
-                                <td class="align-middle"><?= $row->pro_prix ?></td>
-                                <td class="align-middle"><?= $row->pro_stock ?></td>
-                                <td class="align-middle"><?= $row->pro_couleur ?></td>
-                                <td class="align-middle">
-                                    <a href="<?= site_url("produits/detail/" . $row->pro_id); ?>" title="">Détail</a>
-                                </td>
-                            </tr>
+                    foreach ($pagination as $row) {
+                        ?>
+                        <tr>
+                            <td style="width: 80px; height: 80px;">
+                                <?= form_open('produits/ajoutePanier/', 'name="formulaire" id="formulaire"'); ?>
+                                <input class="form-control" name="pro_qte" id="pro_qte" value="1">
+                                <input type="hidden" name="pro_prix" value="<?= $row->pro_prix ?>">
+                                <input type="hidden" name="pro_id" value="<?= $row->pro_id ?>">
+                                <input type="hidden" name="pro_libelle" value="<?= $row->pro_libelle ?>">
+                                <div class="form-group">
+                                    <input class="btn btn-default btn-sm" type="submit" value="Ajouter">
+                                </div>
+                                </form>
+                            </td>
+                            <td class="align-middle">
+                                <img class="img-responsive" style="width: 80px; height: 80px;" src="<?= base_url("assets/images/") . $row->pro_id . '.' . $row->pro_photo ?>" alt="" title="<?= $row->pro_libelle ?>">
+                            </td>
+                            <td class="align-middle"><?= $row->pro_ref ?></td>
+                            <td class="align-middle"><?= $row->pro_libelle ?></td>
+                            <td class="align-middle"><?= $row->pro_prix ?></td>
+                            <td class="align-middle"><?= $row->pro_stock ?></td>
+                            <td class="align-middle"><?= $row->pro_couleur ?></td>
+                            <td class="align-middle">
+                                <a href="<?= site_url("produits/detail_user/" . $row->pro_id); ?>" title="">Détail</a>
+                            </td>
+                        </tr>
                     <?php
                     }
                     ?>
                 </tbody>
             </table>
+            <p><?= $links ?></p>
         </div>
     </div>
 </div>
