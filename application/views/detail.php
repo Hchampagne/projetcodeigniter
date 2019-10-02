@@ -1,4 +1,3 @@
-
 <body>
 	<div class="container">
 		<p>
@@ -81,7 +80,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for='pro_d_modif'>Date de modification</label>
-						<input class=form-control type="txt" name="pro_d_modif" value="<?=$produit->pro_d_modif != 0 ? date("d/m/Y H:i:s", strtotime($produit->pro_d_modif)) : ""; ?>" disabled>
+						<input class=form-control type="txt" name="pro_d_modif" value="<?= $produit->pro_d_modif != 0 ? date("d/m/Y H:i:s", strtotime($produit->pro_d_modif)) : ""; ?>" disabled>
 					</div>
 				</div>
 
@@ -104,9 +103,9 @@
 			</div>
 
 		</form>
-		<!--<nav class="nav">
-			<a class="navbar-brand" href="<?= site_url("produits/liste/") ?>">RETOUR</a>
-		</nav> -->
+		<nav class="nav">
+			<a  class="nav-bar btn btn-outline-primary btn-sm" role="button" href="<?= site_url("produits/liste/") ?>">RETOUR</a>
+		</nav>
 
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

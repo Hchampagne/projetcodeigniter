@@ -3,7 +3,7 @@
     <div class="row text-center">
         <div class="col table-responsive">
             <table class="table ">
-                
+
                 <thead class="thead-light">
                     <tr>
 
@@ -42,7 +42,7 @@
                             <td class="align-middle"><?= $row->pro_stock ?></td>
                             <td class="align-middle"><?= $row->pro_couleur ?></td>
                             <td class="align-middle">
-                                <a href="<?= site_url("produits/detail_user/" . $row->pro_id); ?>" title="">Détail</a>
+                                <a class="btn btn-outline-primary btn-sm" role="button" href="<?= site_url("produits/detail/" . $row->pro_id); ?>" title="">Détail</a>
                             </td>
                         </tr>
                     <?php
