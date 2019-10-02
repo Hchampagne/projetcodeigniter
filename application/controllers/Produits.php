@@ -99,7 +99,7 @@ class Produits extends CI_Controller
                 array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
 
             //test photo valide
-            $config['upload_path'] = './assets/images/';
+            $config['upload_path'] ="./assets/images/";
             $config['allowed_types'] = 'gif|jpg|jpeg|pjpeg|png|x-png|tiff'; //types fichiers autorisés
             $this->upload->initialize($config);
             if(! $this->upload->do_upload('fichier')){
@@ -174,7 +174,7 @@ class Produits extends CI_Controller
 
             if(!empty($_FILES['fichier']['name'])){
                 //test photo valide
-                $config['upload_path'] = './assets/images/';
+                $config['upload_path'] = "./assets/images/";
                 $config['allowed_types'] = 'gif|jpg|jpeg|pjpeg|png|x-png|tiff'; //types fichiers autorisés
                 $this->upload->initialize($config);
                 if (!$this->upload->do_upload('fichier')) {
@@ -200,6 +200,7 @@ class Produits extends CI_Controller
 
                 $detailCat = $this->produits_model->detail_categories($catId);
 
+                $this->load->view('header.php');
                 $this->load->view('modif', $model + $cat + $detailCat+$aview);
             }
             else{
@@ -217,7 +218,7 @@ class Produits extends CI_Controller
                
                 $this->produits_model->modif_update($data,$id,$extention);
                 // ré affiche le header et la liste admin
-                redirect("produits/liste");
+                redirect("produits/liste/");
             }              
         } 
         else {
