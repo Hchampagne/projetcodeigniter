@@ -18,10 +18,3 @@
     height : 80px;
     width : 80px;
 }
-
-fieldset {
-    background-color: rgb(179, 175, 175, 0.4);
-    border-radius: 5px;
-    padding: 10px 50px 20px;
-}
-
