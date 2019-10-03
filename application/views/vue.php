@@ -30,8 +30,8 @@
             </div>
             <div class="row">
                 <div class="col-md6">                   
-                    <div class="container-fluid">
-                        <img src="<?= base_url("assets/images/") . $produit->pro_id . "." . $produit->pro_photo ?>" class="img-responsive" height="300" width="300">
+                    <div class="container">
+                        <img  src="<?= base_url("assets/images/") . $produit->pro_id . "." . $produit->pro_photo ?>" class="img-fluid img-responsive" height="300" width="300">
                     </div>
                 </div>
                 <div class="col-md-6">

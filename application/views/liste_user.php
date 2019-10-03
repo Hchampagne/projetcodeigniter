@@ -6,7 +6,6 @@
 
                 <thead class="thead-light">
                     <tr>
-
                         <!--    <th class="align-middle tab">Panier</th>
                         <th class="align-middle">Photo</th>
                         <th class="align-middle">Référence</th>
@@ -22,7 +21,7 @@
                     foreach ($pagination as $row) {
                         ?>
                         <tr>
-                            <td class="align-middle" style="width: 100px; height: 80px;">
+                            <td class="align-middle" style="width: 120px; height: 80px;">
                                 <?= form_open('produits/ajoutePanier/', 'name="formulaire" id="formulaire"'); ?>
 
                                 <input type="hidden" name="pro_prix" value="<?= $row->pro_prix ?>">
