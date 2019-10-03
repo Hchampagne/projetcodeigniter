@@ -10,6 +10,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Produits extends CI_Controller
 {
+
+//PAGE INDEX
+    public function index(){
+        $this->load->view('index_H');
+        $this->load->view('index_C');
+        $this->load->view('index_F');
+    }
+
+
 //LISTE ADMINISTRATEUR CRUD
     public function liste()
     {

@@ -12,26 +12,26 @@
 	<nav class="navbar container-fluid sticky-top navbar-expand-lg navbar-dark bg-dark">
 
 		<a class="navbar-brand" href="#">
-			<img alt="logo" title="logo" src="<?= base_url("/assets/images/img_site/") . "88.png" ?>" width="" height="100" alt="">
+			<img alt="logo" title="logo" src="<?= base_url("/assets/images/img_site/") . "logo.png" ?>" width="" height="100" alt="">
 		</a>
-		<a class="navbar-brand" href="">Accueil</a>
+		<a class="navbar-brand" href="<?= site_url("/Produits/index/") ?>">Accueil</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menuprincipal" aria-controls="menuprincipal" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="menuprincipal">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
-					<a class="nav-link" href="<?= site_url("/produits/liste_user/") ?>">Boutique</a>
+					<a class="nav-link" href="<?= site_url("/Produits/liste_user/") ?>">Boutique</a>
 				</li>
 				</li>
 				<li class=" nav-item active">
-					<a <?= isset($hide) ? $hide : ''; ?> class="nav-link active" href="<?= site_url("/produits/form_mdp/") ?>">Connexion</a>
+					<a <?= isset($hide) ? $hide : ''; ?> class="nav-link active" href="<?= site_url("/Produits/form_mdp/") ?>">Connexion</a>
 				</li>
 				<li>
-					<a <?= isset($hide) ? $hide : ''; ?> class="nav-link active " href="<?= site_url("/produits/form_enr/") ?>">S'enregistrer</a>
+					<a <?= isset($hide) ? $hide : ''; ?> class="nav-link active " href="<?= site_url("/Produits/form_enr/") ?>">S'enregistrer</a>
 				</li>
 				<li class="nav-item active">
-					<a <?= isset($hide) ? '' : 'hidden'; ?> class="nav-link active" href="<?= site_url("/produits/deconnexion/") ?>">Déconnexion</a>
+					<a <?= isset($hide) ? '' : 'hidden'; ?> class="nav-link active" href="<?= site_url("/Produits/deconnexion/") ?>">Déconnexion</a>
 				</li>
 
 			</ul>
@@ -40,7 +40,7 @@
 		<div>
 			<span class="panier">&nbsp<?= isset($mess) ? $mess : "" ?></span>
 			<div class="position -right">
-				<a class="navbar-brand" href="<?= site_url("/produits/affiche/") ?>">
+				<a class="navbar-brand" href="<?= site_url("/Produits/affiche/") ?>">
 					<img class="" alt="" title="" src="<?= base_url("/assets/images/img_site/") . "panier.png" ?>" width="" height="35" alt="">
 				</a>
 				<span class="panier">&nbsp<?= isset($compteur) ? $compteur . " article(s)" : "0 article(s)" ?></span>
@@ -48,5 +48,5 @@
 			<p class="white">&nbsp <?= isset($mess1) ? $mess1 : "" ?></p>
 		</div>
 
-		
+
 	</nav>
