@@ -14,12 +14,11 @@ class Produits extends CI_Controller
     public function liste()
     {
         //appel model
-        $this->load->model('produits_model');
         $aListe = $this->produits_model->liste();
         $aView["liste_produits"] = $aListe;
 
         // Appel de la vue avec transmission du tableau 
-        $this->load->view('header.php');
+        $this->load->view('header');
         $this->load->view('liste', $aView);
     }
 
@@ -44,7 +43,7 @@ class Produits extends CI_Controller
 
         //config pagination et affichage
         $config = array();
-        $config["base_url"] = site_url() . '/produits/liste_user'; // url de pagination
+        $config["base_url"] = site_url() . '/Produits/liste_user'; // url de pagination
         $config["total_rows"] = $this->pagination_model->get_counter(); // recup le nb total enregistrement
         $config["per_page"] = 6;        //nb resultats par page
         $config["uri_segment"] = 3;     //nb segment à partir de base url
@@ -109,7 +108,7 @@ class Produits extends CI_Controller
         // controle session acces admin
         
         if ($this->session->role != 'admin') {
-            redirect('produits/liste_user');           
+            redirect('Produits/liste_user');           
         }
         
         $this->load->database();
@@ -146,7 +145,7 @@ class Produits extends CI_Controller
                 //il au moins une erreur / recharge la vue formulaire ajout
 
                 $cat=$this->produits_model->categories();  
-                $this->load->view('header.php');
+                $this->load->view('header');
                 $this->load->view('ajout', $cat+$aview);
             } 
             else {
@@ -155,8 +154,7 @@ class Produits extends CI_Controller
 
                 //recup extention de la photo
                 $extention = substr(strrchr($_FILES['fichier']['name'], '.'), 1);
-
-                $this->load->model('produits_model');
+             
                 $id = $this->produits_model->ajout_insert($data,$extention);               
                              
                 //prarmètrage pour l'upload de la photo             
@@ -166,13 +164,13 @@ class Produits extends CI_Controller
                 //ajout extention en base et de renome /deplace la photo
                 $this->upload->do_upload('fichier');
                 
-                redirect("produits/liste"); // redirection liste             
+                redirect("Produits/liste"); // redirection liste             
             }
         } 
         else {  //il n'y a pas de valeurs postées premier affichage du formulaire ajout
             
             $cat = $this->produits_model->categories(); 
-            $this->load->view('header.php');
+            $this->load->view('header');
             $this->load->view('ajout', $cat);
         }
     }
@@ -184,7 +182,7 @@ class Produits extends CI_Controller
         // controle session acces admin
         
         if($this->session->role != 'admin'){
-            redirect('produits/liste_user');
+            redirect('Produits/liste_user');
         }
 
         $this->load->database();
@@ -249,7 +247,7 @@ class Produits extends CI_Controller
                
                 $this->produits_model->modif_update($data,$id,$extention);
                 // ré affiche le header et la liste admin
-                redirect("produits/liste");
+                redirect("Produits/liste");
             }              
         } 
         else {
@@ -264,7 +262,7 @@ class Produits extends CI_Controller
 
             $detailCat = $this->produits_model->detail_categories($catId);
             
-            $this->load->view('header.php');
+            $this->load->view('header');
             $this->load->view('modif', $model + $cat + $detailCat);
         }
     }
@@ -275,13 +273,11 @@ class Produits extends CI_Controller
         
         $this->produits_model->suppression($id);
 
-        redirect("produits/liste");
+        redirect("Produits/liste");
     }
 
 // LOGIN ET SESSION ADMIN/USER
     public function form_mdp(){
-
-        $this->load->database();
 
         if($this->input->post()){  // si post
              
@@ -308,11 +304,11 @@ class Produits extends CI_Controller
                                               
                         if($ident['ident']->ins_role  == 'admin') {  //load header et liste admin 
                           
-                            redirect("produits/liste"); // redirection liste  
+                            redirect("Produits/liste"); // redirection liste  
 
                         }else{ //load header et liste user 
                             
-                            redirect('produits/liste_user');
+                            redirect('Produits/liste_user');
                         }                   
                     }else{ // erreur mot de passe
                         $mess['mess'] = 'problème connexion mdp';
@@ -343,7 +339,6 @@ class Produits extends CI_Controller
 
 //ENREGISTREMENT
     PUBLIc FUNCTION form_enr(){
-        $this ->load->database();
 
         if($this->input->post()){
 
@@ -403,12 +398,10 @@ class Produits extends CI_Controller
                     $this->session->set_userdata('prenom', $ident['ident']->ins_prenom);
                     $this->session->set_userdata('email', $ident['ident']->ins_login);
 
-                    echo $this->session->nom;
-
                     if($ident['ident']->ins_role  == 'admin') {  //load header et liste admin                          
-                            redirect("produits/liste"); // redirection liste  
+                            redirect("Produits/liste"); // redirection liste  
                         }else{ //load header et liste user                            
-                            redirect('produits/liste_user');
+                            redirect('Produits/liste_user');
                         }   
                 }
             
@@ -431,9 +424,6 @@ class Produits extends CI_Controller
 
 //DECONNEXION
     public function deconnexion(){
-        //test
-        //  $this->output->enable_profiler(TRUE); 
-        //test
 
         $this->session->unset_userdata('role');
         $this->session->unset_userdata('nom');
@@ -444,14 +434,13 @@ class Produits extends CI_Controller
             setcookie(session_name(), '', time() - 42000);
         }  
         $this->session->sess_destroy();
-        redirect('produits/liste_user');
+        redirect('Produits/liste_user');
     }
 
 // AJOUT PRODUIT AU PANIER   
     public function ajoutePanier() //ajoute un produit au panier
     {
         //appel model données pour tableau/liste_user
-        $this->load->model('produits_model');
         $aListe = $this->produits_model->liste();
         $aView["liste_produits"] = $aListe;
 
@@ -475,7 +464,7 @@ class Produits extends CI_Controller
             $this->session->compteur = $nb  ;   // stock valeur compteur ds variable session compteur à un premier passage
             //prepare pour compteur dans header_user
             
-            redirect('produits/liste_user/');  
+            redirect('Produits/liste_user/');  
 
             
         } else //si le panier existe
@@ -494,7 +483,7 @@ class Produits extends CI_Controller
                 $mess= "*Ce produit est déjà dans le panier*";
                 $this->session->message = $mess;
 
-                redirect('produits/liste_user/');
+                redirect('Produits/liste_user/');
                
             } else { //sinon le produit est ajouté dans le panier
                 array_push($tab, $data);
@@ -509,7 +498,7 @@ class Produits extends CI_Controller
                 $mess = "";
                 $this->session->message = $mess;
 
-                redirect('produits/liste_user/');               
+                redirect('Produits/liste_user/');               
             }
         }
     }
