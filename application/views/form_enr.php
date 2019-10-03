@@ -9,7 +9,7 @@
         <div class="col-md-8">
             <!-- <form role="form" method="post" action=""> -->
             <?= form_open('produits/form_enr/','name="formulaire" id="formulaire" enctype="multipart/form-data"'); ?>
-                <fieldset class="fond">
+                <fieldset>
                     <p class="text-uppercase">compte</p>
 
                     <div class="row">

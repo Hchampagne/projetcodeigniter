@@ -9,12 +9,12 @@
         <div class="col-md-6">
             <!--<form role="form" method="post" action="">-->
                 <?= form_open('produits/form_mdp/','name="formulaire" id="formulaire" enctype="multipart/form-data"'); ?>
-                <fieldset class="fond">
-                    <p class=" pull-center"></p>
+                <fieldset>
+                    
                     <!-- login -->
                     <div class="form-group">
                         <input type="text" name="email" id="email" class="form-control input-lg" placeholder="adresse mail" value="<?= set_value('email'); ?>">
-                        <p id="alertEmail" class="alert">&nbsp<?= form_error('email', '<span>', '</span>') ?></p>
+                        <span id="alertEmail" class="alert">&nbsp<?= form_error('email', '<span>', '</span>') ?></span>
                     </div>
                     <!-- mot de passe -->
                     <div class="form-group">
@@ -25,10 +25,10 @@
                         <button type="submit" class="btn btn-md btn-primary" value="connexion" name="connexion">connexion</button>
                     </div>
                     <div>
-                        <p>&nbsp<?= isset($mess) ? $mess : ""; ?></p>
+                        <p class="alert">&nbsp<?= isset($mess) ? $mess : ""; ?></p>
                     </div>
                     <div>
-                        <a href="#">Mot de passe oublié ou verrouillez !?</a>
+                        <a href="#">Mot de passe oublié !</a>
                     </div>
                 </fieldset>
             </form>
