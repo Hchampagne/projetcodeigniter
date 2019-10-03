@@ -4,8 +4,7 @@
             <h3>Formulaire détail</h3>
         </p>
 
-        <form>
-            <!-- premiére ligne -->
+        <form>          
             <div class="row">
                 <div class="col-md-">
                     <div class="form-group">
@@ -60,7 +59,7 @@
 
         </form>
         <nav class="nav">
-            <a class="nav-bar btn btn-outline-primary btn-sm" role="button" href="<?= site_url("produits/liste/") ?>">RETOUR</a>
+            <a class="nav-bar btn btn-outline-primary btn-sm" role="button" href="<?= site_url("produits/liste_user/") ?>">RETOUR</a>
         </nav>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

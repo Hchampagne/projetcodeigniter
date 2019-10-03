@@ -23,32 +23,73 @@ class Produits extends CI_Controller
         $this->load->view('liste', $aView);
     }
 
-//LISTE UTILISATEUR BOUTIQUE
+    //LISTE UTILISATEUR BOUTIQUE
     public function liste_user()
     {
         //appel model
-        $this->load->model('produits_model');
-        $aListe = $this->produits_model->liste();
-        $aView["liste_produits"] = $aListe;
+        //$this->load->model('produits_model');
+        //$aListe = $this->produits_model->liste();
+        //$aView["liste_produits"] = $aListe;
 
         $nom = $this->session->nom;
         $prenom = $this->session->prenom;
         $mess['mess'] = $this->session->message;
 
 
-        if(!empty($nom)){
-            $mess1['mess1'] = 'connexion : ' . $nom .' '. $prenom;
-            $hide['hide'] = 'hidden';
-        }else{
-            $mess1['mess1'] = '';
-            $hide['hide'] = null;
+        if (!empty($nom)) { // si session nom pas vide 
+            $mess1['mess1'] = 'connexion : ' . $nom . ' ' . $prenom;  //message connexion
+            $hide['hide'] = 'hidden';  // variable pour caché connexion/enregistrement et afficher déconnexion
+        } else {
+            $mess1['mess1'] = '';   // pas affiche connexion
+            $hide['hide'] = null;   // cache déconnexion
         }
 
         // Appel de la vue avec transmission du tableau 
-        $compteur['compteur'] = $this->session->compteur;  
+        $compteur['compteur'] = $this->session->compteur;
 
-        $this->load->view('header_user',$compteur+$mess1+$hide+$mess);
-        $this->load->view('liste_user', $aView);
+        //config pagination et affichage
+
+        $config = array();
+        $config["base_url"] = site_url() . '/produits/liste_user'; // url de pagination
+        $config["total_rows"] = $this->pagination_model->get_counter(); // recup le nb total enregistrement
+        $config["per_page"] = 6;        //nb resultats par page
+        $config["uri_segment"] = 3;     //nb segment à partir de base url
+
+        //$config['use_page_number'] = true;
+
+        // n'affiche pas first et last
+        $config['first_link'] = false;
+        $config['last_link'] = false;
+
+        //définit l'apparence des liens de navigation
+        $config['attributes'] = array('class' => 'btn btn-outline-primary', 'role' => 'button');
+
+        //n'affiche pas prev et next
+        $config['next_link'] = 'suivant';
+        $config['prev_link'] = 'précédent';
+
+        // definit l'apparence du lien actif
+        $config['cur_tag_open'] = '<a href="" class="btn btn-outline-primary" role="bouton">';
+        $config['cur_tag_close'] = '</a>';
+
+        //nombres de lien visible avant et après le lien actif
+        $config['num_links'] = 0;
+        $config['display_pages'] = FALSE;
+
+
+        $this->pagination->initialize($config); //initialise la config
+        $data["links"] = $this->pagination->create_links(); //construction des lien de navigation // aux pages
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;  // test si segment rien attribut zéro  à page
+        $data['pagination'] = $this->pagination_model->get_prod($config["per_page"], $page); // construit un tableau pour affichage (nb enr) et (enr de début)
+        //$this->load->view('paginations/index', $data);
+
+        //fin insertion pagination
+
+        $this->load->view('header_user', $compteur + $mess1 + $hide + $mess);
+        echo $page;
+        echo $config["per_page"];
+        $this->load->view('liste_user', $data);
+        //$this->load->view('liste_user', $aView); //affichage liste
     }
 
 //DETAIL CRUD
@@ -104,7 +145,7 @@ class Produits extends CI_Controller
                 array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
 
             //test photo valide
-            $config['upload_path'] = base_url("assets/images/");
+            $config['upload_path'] ="./assets/images/";
             $config['allowed_types'] = 'gif|jpg|jpeg|pjpeg|png|x-png|tiff'; //types fichiers autorisés
             $this->upload->initialize($config);
             if(! $this->upload->do_upload('fichier')){
@@ -179,7 +220,7 @@ class Produits extends CI_Controller
 
             if(!empty($_FILES['fichier']['name'])){
                 //test photo valide
-                $config['upload_path'] = base_url("assets/images/");
+                $config['upload_path'] = "./assets/images/";
                 $config['allowed_types'] = 'gif|jpg|jpeg|pjpeg|png|x-png|tiff'; //types fichiers autorisés
                 $this->upload->initialize($config);
                 if (!$this->upload->do_upload('fichier')) {
