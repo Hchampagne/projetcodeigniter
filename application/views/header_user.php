@@ -12,7 +12,7 @@
 	<nav class="navbar container-fluid sticky-top navbar-expand-lg navbar-dark bg-dark">
 
 		<a class="navbar-brand" href="#">
-			<img alt="logo jarditou" title="logo jarditou" src="<?= base_url("/assets/images/img_site/") . "88.png" ?>" width="" height="100" alt="">
+			<img alt="logo" title="logo" src="<?= base_url("/assets/images/img_site/") . "88.png" ?>" width="" height="100" alt="">
 		</a>
 		<a class="navbar-brand" href="">Accueil</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menuprincipal" aria-controls="menuprincipal" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,7 @@
 			<span class="panier">&nbsp<?= isset($mess) ? $mess : "" ?></span>
 			<div class="position -right">
 				<a class="navbar-brand" href="<?= site_url("/produits/affiche/") ?>">
-					<img class="" alt="" title="" src="<?= base_url("/assets/images/img_site/") . "panier.png" ?>" width="" height="50" alt="">
+					<img class="" alt="" title="" src="<?= base_url("/assets/images/img_site/") . "panier.png" ?>" width="" height="35" alt="">
 				</a>
 				<span class="panier">&nbsp<?= isset($compteur) ? $compteur . " article(s)" : "0 article(s)" ?></span>
 			</div>

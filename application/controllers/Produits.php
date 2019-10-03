@@ -100,23 +100,28 @@ class Produits extends CI_Controller
 
 //DETAIL CRUD
     public function detail($id)
+    {      
+        $model = $this->produits_model->detail_produits($id);
+        $catId = $model['produit']->pro_cat_id;
+        $detailCat = $this->produits_model->detail_categories($catId); 
+
+        $this->load->view('header');
+        $this->load->view('detail', $model + $detailCat);                   
+    }
+
+    // CRUD
+    public function vue($id)
     {
-       
         $model = $this->produits_model->detail_produits($id);
         $catId = $model['produit']->pro_cat_id;
         $detailCat = $this->produits_model->detail_categories($catId);
 
-       
-        if($this->session->role != 'admin'){
-            $compteur['compteur'] = $this->session->compteur;  
-            $this->load->view('header_user',$compteur);
-            $this->load->view('detail', $model + $detailCat);
-        }else{
+        $compteur['compteur'] = $this->session->compteur;
 
-            $this->load->view('header.php');
-            $this->load->view('detail', $model + $detailCat);
-        }              
+        $this->load->view('header_user',$compteur);
+        $this->load->view('vue', $model + $detailCat);  
     }
+
 
 //AJOUT CRUD
     public function ajout()
