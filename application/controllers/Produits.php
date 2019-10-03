@@ -23,19 +23,14 @@ class Produits extends CI_Controller
         $this->load->view('liste', $aView);
     }
 
-    //LISTE UTILISATEUR BOUTIQUE
+//LISTE UTILISATEUR BOUTIQUE
     public function liste_user()
     {
-        //appel model
-        //$this->load->model('produits_model');
-        //$aListe = $this->produits_model->liste();
-        //$aView["liste_produits"] = $aListe;
-
         $nom = $this->session->nom;
         $prenom = $this->session->prenom;
         $mess['mess'] = $this->session->message;
 
-
+        // hidden/show liens connexion/enregistrement/deconnexion
         if (!empty($nom)) { // si session nom pas vide 
             $mess1['mess1'] = 'connexion : ' . $nom . ' ' . $prenom;  //message connexion
             $hide['hide'] = 'hidden';  // variable pour caché connexion/enregistrement et afficher déconnexion
@@ -48,14 +43,11 @@ class Produits extends CI_Controller
         $compteur['compteur'] = $this->session->compteur;
 
         //config pagination et affichage
-
         $config = array();
         $config["base_url"] = site_url() . '/produits/liste_user'; // url de pagination
         $config["total_rows"] = $this->pagination_model->get_counter(); // recup le nb total enregistrement
         $config["per_page"] = 6;        //nb resultats par page
         $config["uri_segment"] = 3;     //nb segment à partir de base url
-
-        //$config['use_page_number'] = true;
 
         // n'affiche pas first et last
         $config['first_link'] = false;
@@ -81,15 +73,9 @@ class Produits extends CI_Controller
         $data["links"] = $this->pagination->create_links(); //construction des lien de navigation // aux pages
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;  // test si segment rien attribut zéro  à page
         $data['pagination'] = $this->pagination_model->get_prod($config["per_page"], $page); // construit un tableau pour affichage (nb enr) et (enr de début)
-        //$this->load->view('paginations/index', $data);
-
-        //fin insertion pagination
-
+       
         $this->load->view('header_user', $compteur + $mess1 + $hide + $mess);
-        echo $page;
-        echo $config["per_page"];
         $this->load->view('liste_user', $data);
-        //$this->load->view('liste_user', $aView); //affichage liste
     }
 
 //DETAIL CRUD

@@ -16,6 +16,7 @@ class Pagination_model extends CI_Model
     public function get_prod($limit, $start)
     {
         $this->db->limit($limit, $start);
+        $this->db->where('pro_bloque',0);
         $query = $this->db->get($this->table);
         return $query->result();
     }
