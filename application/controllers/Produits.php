@@ -65,8 +65,8 @@ class Produits extends CI_Controller
         $config['attributes'] = array('class' => 'btn btn-outline-primary', 'role' => 'button');
 
         //n'affiche pas prev et next
-        $config['next_link'] = 'suivant';
-        $config['prev_link'] = 'précédent';
+        $config['next_link'] = 'Suivant';
+        $config['prev_link'] = 'Précédent';
 
         // definit l'apparence du lien actif
         $config['cur_tag_open'] = '<a href="" class="btn btn-outline-primary" role="bouton">';

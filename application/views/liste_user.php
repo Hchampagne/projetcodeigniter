@@ -22,18 +22,21 @@
                     foreach ($pagination as $row) {
                         ?>
                         <tr>
-                            <td style="width: 80px; height: 80px;">
+                            <td class="align-middle" style="width: 100px; height: 80px;">
                                 <?= form_open('produits/ajoutePanier/', 'name="formulaire" id="formulaire"'); ?>
-                                <input class="form-control" name="pro_qte" id="pro_qte" value="1">
+
                                 <input type="hidden" name="pro_prix" value="<?= $row->pro_prix ?>">
                                 <input type="hidden" name="pro_id" value="<?= $row->pro_id ?>">
                                 <input type="hidden" name="pro_libelle" value="<?= $row->pro_libelle ?>">
-                                <div class="form-group">
-                                    <input class="btn btn-default btn-sm" type="submit" value="Ajouter">
+                                <div class="form-group input-group input-group-sm">
+                                    <input class="form-control" name="pro_qte" id="pro_qte" aria-describedby="addon" value="1">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-success btn-sm" type="submit" id="addon" value="Ajouter">Ajout</button>
+                                    </div>
                                 </div>
                                 </form>
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle" style="width: 80px; height: 80px;">
                                 <img class="img-responsive" style="width: 80px; height: 80px;" src="<?= base_url("assets/images/") . $row->pro_id . '.' . $row->pro_photo ?>" alt="" title="<?= $row->pro_libelle ?>">
                             </td>
                             <td class="align-middle"><?= $row->pro_ref ?></td>
@@ -42,7 +45,7 @@
                             <td class="align-middle"><?= $row->pro_stock ?></td>
                             <td class="align-middle"><?= $row->pro_couleur ?></td>
                             <td class="align-middle">
-                                <a class="btn btn-outline-primary btn-sm" role="button" href="<?= site_url("produits/vue/" . $row->pro_id); ?>" title="">Détail</a>
+                                <a class="btn btn-outline-primary btn-sm" role="button" href="<?= site_url("produits/vue/") . $row->pro_id; ?>" title="">Détail</a>
                             </td>
                         </tr>
                     <?php
