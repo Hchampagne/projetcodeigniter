@@ -215,6 +215,23 @@ $('#ins_login').blur(function () {
     }
 });
 
+ //controle doublons email (ajax)
+ $('#inslogin').blur(function () {
+     $.post({
+         url: base_site("Produits/doublons"),
+         data: {
+             verifRef: $("#ins_login").val()
+         },
+         success: function (data) {
+             if (data == 1) {
+                 $("#alertLogin").text("dèjà utilisée");
+             } else {
+                 $("#alertLogin").html("&nbsp");
+             }
+         }
+     });
+ });
+
 // champ mot de passe 
 $('#ins_mdp').blur(function () {
     if ($('#ins_mdp').val() == '') {

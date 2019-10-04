@@ -21,14 +21,14 @@
 		<div class="collapse navbar-collapse" id="menuprincipal">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
-					<a class="nav-link" href="<?= site_url("produits/liste_user/") ?>">Boutique</a>
+					<a class="nav-link" href="<?= site_url("Produits/liste/") ?>">Boutique</a>
 				</li>
 				<li class=" nav-item active">
 					<a class="nav-link" href="#"></a>
 				</li>
 				</li>
 				<li class="nav-item active">
-					<a class="nav-link disabled" href=" #">contact</a>
+					<a class="nav-link disabled" href="<?= site_url("/Produits/deconnexion/") ?>">Déconnexion</a>
 				</li>
 			</ul>
 

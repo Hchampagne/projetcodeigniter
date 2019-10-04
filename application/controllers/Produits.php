@@ -442,6 +442,7 @@ class Produits extends CI_Controller
         if (ini_get("session.use_cookies")) {
             setcookie(session_name(), '', time() - 42000);
         }  
+
         $this->session->sess_destroy();
         redirect('Produits/liste_user');
     }
@@ -600,6 +601,26 @@ class Produits extends CI_Controller
         $this->session->compteur = 0;
         $this->session->panier = array();
         $this->affiche();
+    }
+
+//controle doublons
+    public function doublons(){
+
+    //if(isset($_POST['verifEmail'])){
+    //    $verifRef=htmlspecialchars($_POST['verifRef']);
+    //    $requete = "SELECT COUNT(pro_ref) as nb FROM produits WHERE pro_ref = :verifRef";		
+    //   $result = $db->prepare($requete);
+    //    $result->bindValue(':verifRef',$verifRef,PDO::PARAM_STR);
+    //    $result->execute();	
+
+    //    $row=$result->fetch(PDO::FETCH_OBJ);
+    //    $data=$row->nb;
+    $verif = $this->input->post('verif');
+    $data = $this->produit_model->doublonsMod($verif);
+
+    echo $data;
+
 
     }
-} 
+
+    }
