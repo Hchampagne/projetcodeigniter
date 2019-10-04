@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<title>header.A</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<link rel="stylesheet" href="#">
+	<link rel="stylesheet" href="<?= base_url("/assets/css/style.css") ?>">
 </head>
 
 <body>
@@ -21,7 +21,7 @@
 		<div class="collapse navbar-collapse" id="menuprincipal">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
-					<a class="nav-link" href="<?= site_url("Produits/liste/") ?>">Boutique</a>
+					<a class="nav-link" href="<?= site_url("Produits/ajout/") ?>">Ajout Produits</a>
 				</li>
 				<li class=" nav-item active">
 					<a class="nav-link" href="#"></a>

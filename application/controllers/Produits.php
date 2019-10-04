@@ -444,7 +444,7 @@ class Produits extends CI_Controller
         }  
 
         $this->session->sess_destroy();
-        redirect('Produits/liste_user');
+        redirect('Produits/index');
     }
 
 // AJOUT PRODUIT AU PANIER   
