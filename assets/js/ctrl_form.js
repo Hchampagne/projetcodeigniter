@@ -216,7 +216,7 @@ $('#ins_login').blur(function () {
 });
 
  //controle doublons email (ajax)
- $('#inslogin').blur(function () {
+ $('#ins_login').change(function () {
      $.post({
          url: base_site("Produits/doublons"),
          data: {
@@ -226,7 +226,7 @@ $('#ins_login').blur(function () {
              if (data == 1) {
                  $("#alertLogin").text("dèjà utilisée");
              } else {
-                 $("#alertLogin").html("&nbsp");
+                 $("#alertLogin").text("");
              }
          }
      });
