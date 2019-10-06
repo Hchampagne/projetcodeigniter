@@ -1,7 +1,7 @@
-<footer class="sticky-top">
+<footer>
 	<nav class="navbar container-fluid navbar-expand-lg bg-dark navbar-dark">
 		<div>
-			<ul class="navbar-nav">
+			<ul class="navbar-nav  sticky-bottom">
 				<li><a href="#" title="mensionlégale">Mentions légales</a></li>
 				<li><a href="#" title="horaires">Horaires</a></li>
 				<li><a href="#" title="plan du site">Plan du site</a></li>

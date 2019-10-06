@@ -185,7 +185,7 @@ $('#ins_ville').blur(function () {
 //champ tel mobile
 $('#ins_portable').blur(function () {
     if ($('#ins_portable').val() == '') {
-        $('#alertTel').text("Le champs est vide");
+        $('#alertPortable').text("Le champs est vide");
     } else if (regTel.test($('#ins_portable').val()) == false) {
         $('#alertPortable').text("La sasie est incorrecte");
     } else {

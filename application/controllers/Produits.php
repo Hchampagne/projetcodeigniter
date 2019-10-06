@@ -12,7 +12,8 @@ class Produits extends CI_Controller
 {
 
 //PAGE INDEX
-    public function index(){
+    public function index(){  //charge page accueil
+
         $this->load->view('index_H');
         $this->load->view('index_C');
         $this->load->view('index_F');
@@ -84,6 +85,7 @@ class Produits extends CI_Controller
        
         $this->load->view('header_user', $compteur + $mess1 + $hide + $mess);
         $this->load->view('liste_user', $data);
+        $this->load->view('index_F');
     }
 
 //DETAIL CRUD
