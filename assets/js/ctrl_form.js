@@ -193,6 +193,24 @@ $('#ins_portable').blur(function () {
     }
 }); 
 
+ //controle doublons tel portable (ajax)
+ $('#ins_portable').change(function () {
+     $.post({
+         url: "../../Produits/doubPortable",
+         data: {
+             verifRef: $("#ins_portable").val(),
+         },
+         success: function (data) {
+
+             if (data == 1) {
+                 $("#alertPortable").text("dèjà utilisée");
+             } else {
+                 $("#alertPortable").text("");
+             }
+         }
+     });
+ });
+
 
 //champ tel fixe
 $('#ins_Fixe').blur(function () {
@@ -216,13 +234,15 @@ $('#ins_login').blur(function () {
 });
 
  //controle doublons email (ajax)
- $('#ins_login').change(function () {
+ $('#ins_login').change(function () {    
      $.post({
-         url: "../Produits/doublons",
-         data: {
-             verifRef: $("#ins_login").val()
+         url: "../../Produits/doublons",
+         data: 
+         {
+             verifRef: $("#ins_login").val(),          
          },
          success: function (data) {
+             
              if (data == 1) {
                  $("#alertLogin").text("dèjà utilisée");
              } else {

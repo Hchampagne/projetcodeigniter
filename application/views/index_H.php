@@ -14,7 +14,7 @@
 			<a class="navbar-brand" href="#">
 				<img alt="logo" title="logo" src="<?= base_url("/assets/images/img_site/") . "logo.png" ?>" width="" height="100" alt="">
 			</a>
-			<a class="navbar-brand" href="<?= site_url("/Produits/Accueil/") ?>">Accueil</a>
+			<a class="navbar-brand" href="<?= site_url("/Produits/index/") ?>">Accueil</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menuprincipal" aria-controls="menuprincipal" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>

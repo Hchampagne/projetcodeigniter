@@ -95,11 +95,4 @@ public function mdp($email){
         return $ident;
 }
 
-//doublons
-public function doublonsMod($verif){
-        $this->db->where('ins_login',$verif);
-        $data = $this->db->count_all_results('inscription');
-        return $data;
-}
-
 }

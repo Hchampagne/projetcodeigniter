@@ -141,7 +141,8 @@ class Produits extends CI_Controller
                 array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Trop long'));
 
             //test photo valide
-            $config['upload_path'] ="./assets/images/";
+            
+            $config['upload_path'] = "assets/images/";
             $config['allowed_types'] = 'gif|jpg|jpeg|pjpeg|png|x-png|tiff'; //types fichiers autorisés
             $this->upload->initialize($config);
             if(! $this->upload->do_upload('fichier')){
@@ -215,7 +216,7 @@ class Produits extends CI_Controller
 
             if(!empty($_FILES['fichier']['name'])){
                 //test photo valide
-                $config['upload_path'] = "./assets/images/";
+                $config['upload_path'] = "assets/images/";
                 $config['allowed_types'] = 'gif|jpg|jpeg|pjpeg|png|x-png|tiff'; //types fichiers autorisés
                 $this->upload->initialize($config);
                 if (!$this->upload->do_upload('fichier')) {
@@ -606,23 +607,19 @@ class Produits extends CI_Controller
     }
 
 //controle doublons
-    public function doublons(){
 
-    //if(isset($_POST['verifEmail'])){
-    //    $verifRef=htmlspecialchars($_POST['verifRef']);
-    //    $requete = "SELECT COUNT(pro_ref) as nb FROM produits WHERE pro_ref = :verifRef";		
-    //   $result = $db->prepare($requete);
-    //    $result->bindValue(':verifRef',$verifRef,PDO::PARAM_STR);
-    //    $result->execute();	
+    public function doublons(){ //doublons login
+        $verif = $this->input->post('verifRef');
+        $this->db->where('ins_login', $verif);
+        $data = $this->db->count_all_results('inscription');
+        echo $data;
+    }
 
-    //    $row=$result->fetch(PDO::FETCH_OBJ);
-    //    $data=$row->nb;
-    $verif = $this->input->post('verif');
-    $data = $this->produit_model->doublonsMod($verif);
-
-    echo $data;
-
-
+    public function doubPortable(){  //doublons tel portable
+        $verif = $this->input->post('verifRef');
+        $this->db->where('ins_portable',$verif);
+        $data = $this->db->count_all_results('inscription');
+        echo $data;
     }
 
     }
