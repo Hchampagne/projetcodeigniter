@@ -7,5 +7,13 @@ class Ajax_model extends CI_Model
         parent::__construct();
     }
 
-   
+   public function doublon_login($verif){
+    
+    }
+
+   public function doublon_portable($verif){
+
+    
+    }
+
 }

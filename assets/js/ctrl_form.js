@@ -237,8 +237,8 @@ $('#ins_login').blur(function () {
  //controle doublons email (ajax)
  $('#ins_login').change(function () {    
      $.post({
-         //url: "../../Produits/doublons",
-         url: "../../Ajax/doublons",
+         //url: "../../Produits/doublogin",
+         url: "../../Ajax/doubLogin",
          data: 
          {
              verifRef: $("#ins_login").val(),          
