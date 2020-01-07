@@ -196,7 +196,8 @@ $('#ins_portable').blur(function () {
  //controle doublons tel portable (ajax)
  $('#ins_portable').change(function () {
      $.post({
-         url: "../../Produits/doubPortable",
+         //url: "../../Produits/doubPortable",
+         url: "../../Ajax/doubPortable",
          data: {
              verifRef: $("#ins_portable").val(),
          },
@@ -236,7 +237,8 @@ $('#ins_login').blur(function () {
  //controle doublons email (ajax)
  $('#ins_login').change(function () {    
      $.post({
-         url: "../../Produits/doublons",
+         //url: "../../Produits/doublons",
+         url: "../../Ajax/doublons",
          data: 
          {
              verifRef: $("#ins_login").val(),          
