@@ -66,7 +66,7 @@
                 </div>
                 <!-- champ email -->
                 <div class='form-group'>
-                    <input class='form-control form-control-md' name="ins_login" type="text" id="ins_login" placeholder="adresse mail" value="<?= set_value('ins_login') ?><?= set_value('ins_fixe') ?><?= set_value('ins_fixe') ?>">
+                    <input class='form-control form-control-md' name="ins_login" type="text" id="ins_login" placeholder="adresse mail" value="<?= set_value('ins_login') ?>">
                     <span id="alertLogin" class="alert">&nbsp<?= form_error('ins_login', '<span>', '</span>') ?></span>
                 </div>
 
@@ -74,7 +74,7 @@
                     <div class="col-md-6">
                         <!-- champ mot de passe -->
                         <div class='form-group'>
-                            <input class='form-control form-control-md' name="ins_mdp" type="password" id="ins_mdp" placeholder="mot de passe" value="<?= set_value('ins_mdp') ?><?= set_value('ins_fixe') ?>">
+                            <input class='form-control form-control-md' name="ins_mdp" type="password" id="ins_mdp" placeholder="mot de passe" value="<?= set_value('ins_mdp') ?>">
                             <span id="alertMdp" class="alert">&nbsp<?= form_error('ins_mdp', '<span>', '</span>') ?></span>
                         </div>
                     </div>

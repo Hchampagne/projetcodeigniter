@@ -612,8 +612,7 @@ class Produits extends CI_Controller
         $verif = $this->input->post('verifRef');
         $this->db->where('ins_login', $verif);
         $data = $this->db->count_all_results('inscription');
-        echo $data;
-        
+        echo $data;        
     }
 
     public function doubPortable(){  //doublons tel portable

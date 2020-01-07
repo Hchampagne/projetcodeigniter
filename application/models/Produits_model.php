@@ -57,7 +57,6 @@ public function modif_update($data,$id,$extention){
         $this->db->where('pro_id', $id);
         $this->db->set('pro_d_modif', $modif);
         $this->db->update('produits', $data);
-
         return;
 }
 
