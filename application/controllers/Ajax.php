@@ -10,19 +10,15 @@ class Ajax extends CI_Controller
 
     //controle doublons
 
-    public function doubLogin(){ //doublons login    
-        $verif = $this->input->post('verifRef');
-        $this->db->where('ins_login', $verif);
-        $data = $this->db->count_all_results('inscription');
-        
+    public function doublon(){ //doublons login 
+        //recup post ajax   
+        $verif = $this->input->post('verifRef'); 
+        $champs = $this->input->post('verifChamps');
+        $table = $this->input->post('verifTable');
+        //appel du model pour traitement base de donnée
+        $data = $this->ajax_model->doublon($verif, $champs, $table);  
+        //retour resultat de la requete vers controleur ajax         
         echo $data;        
-    }
-
-    public function doubPortable(){  //doublons tel portable
-        $verif = $this->input->post('verifRef');
-        $this->db->where('ins_portable',$verif);
-        $data = $this->db->count_all_results('inscription');
-        echo $data;
-    }
+    }   
     
 }

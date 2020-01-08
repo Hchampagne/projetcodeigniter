@@ -196,10 +196,11 @@ $('#ins_portable').blur(function () {
  //controle doublons tel portable (ajax)
  $('#ins_portable').change(function () {
      $.post({
-         //url: "../../Produits/doubPortable",
-         url: "../../Ajax/doubPortable",
+         url: "../../Ajax/doublon",
          data: {
              verifRef: $("#ins_portable").val(),
+             verifChamps: "ins_portable",
+             verifTable: "inscription",
          },
          success: function (data) {
 
@@ -236,12 +237,13 @@ $('#ins_login').blur(function () {
 
  //controle doublons email (ajax)
  $('#ins_login').change(function () {    
-     $.post({
-         //url: "../../Produits/doublogin",
-         url: "../../Ajax/doubLogin",
+     $.post({        
+         url: "../../Ajax/doublon",
          data: 
          {
-             verifRef: $("#ins_login").val(),          
+             verifRef: $("#ins_login").val(), 
+             verifChamps: "ins_login",
+             verifTable: "inscription",        
          },
          success: function (data) {
              
