@@ -99,7 +99,7 @@ class Produits extends CI_Controller
         $this->load->view('detail', $model + $detailCat);                   
     }
 
-    // CRUD
+// CRUD
     public function vue($id)
     {
         $model = $this->produits_model->detail_produits($id);
@@ -121,8 +121,6 @@ class Produits extends CI_Controller
         if ($this->session->role != 'admin') {
             redirect('Produits/liste_user');           
         }
-        
-        $this->load->database();
 
         if ($this->input->post()) {
 

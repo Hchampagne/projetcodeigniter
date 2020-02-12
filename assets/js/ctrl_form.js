@@ -198,6 +198,7 @@ $('#ins_portable').blur(function () {
      $.post({
          url: "../../Ajax/doublon",
          data: {
+             
              verifRef: $("#ins_portable").val(),
              verifChamps: "ins_portable",
              verifTable: "inscription",
