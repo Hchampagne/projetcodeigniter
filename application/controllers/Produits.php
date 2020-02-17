@@ -455,7 +455,7 @@ class Produits extends CI_Controller
         $aListe = $this->produits_model->liste();
         $aView["liste_produits"] = $aListe;
 
-
+        // POUR QUANTITE NEGATIVE
         $data = $this->input->post();
         if ($this->input->post('pro_qte') < 0){$data['pro_qte'] = 0;}
 
@@ -478,8 +478,7 @@ class Produits extends CI_Controller
             redirect('Produits/liste_user/');  
 
             
-        } else //si le panier existe
-        {
+        } else {//si le panier existe
             $tab = $this->session->panier;      
             $idProduit = $this->input->post('pro_id');
             $sortie = false;
@@ -502,7 +501,7 @@ class Produits extends CI_Controller
                 $nb = $this->session->compteur;
                 $nb = count($tab);
                 $this->session->compteur = $nb;
-                  //prpare pour compteur dans header_user
+                  //prepare pour compteur dans header_user
 
                 $this->session->panier = $tab;
 
